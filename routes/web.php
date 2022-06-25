@@ -32,3 +32,4 @@ Route::post('/login',[AllUserController::class,'loginSubmit'])->name('user.login
 
 //CUSTOMER
 Route::get('/customer/home',[CustomerController::class,'customerHome'])->name('customer.home');
+Route::get('/customer/account/{name}',[CustomerController::class,'customerAccount'])->name('customer.account');
