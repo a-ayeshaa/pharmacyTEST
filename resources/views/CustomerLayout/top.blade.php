@@ -1,7 +1,7 @@
 <html>
     <head>
         <h3>
-            <a href=" {{route('customer.account',Session::get('name'))}} ">ACCOUNT INFO || </a>
+            <a href=" {{route('customer.account',['name'=>Session::get('name')])}} ">ACCOUNT INFO || </a>
             <a href="">CART || </a>
 
         </h3>

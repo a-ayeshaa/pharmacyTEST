@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\users;
 use App\Models\customer;
+use App\Models\manager;
+use App\Models\vendor;
+use App\Models\courier;
 
 use function PHPUnit\Framework\isNull;
 
