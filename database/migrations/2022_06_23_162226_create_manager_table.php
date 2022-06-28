@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('manager_name');
             //$table->string('manager_pass');
             $table->string('manager_email')->unique();
-            $table->date('manager_dob');
+            //$table->date('manager_dob');
             $table->timestamps();
         });
     }

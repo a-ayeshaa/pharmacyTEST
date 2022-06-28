@@ -63,15 +63,42 @@ class AllUserController extends Controller
                     ->first();
 
         //user table to customer table
-        $customer= new customer();
-        $customer->u_id=$user->u_id;
-        $customer->customer_name = $req->name;
-        $customer->customer_email =$req->email;
-        $customer->save();
+        if ($req->type == 'CUSTOMER')
+        {
+            $customer= new customer();
+            $customer->u_id=$user->u_id;
+            $customer->customer_name = $req->name;
+            $customer->customer_email =$req->email;
+            $customer->save();
+        }
         
         //user table to vendor table
+        if ($req->type == 'VENDOR')
+        {
+            $vendor= new vendor();
+            $vendor->u_id=$user->u_id;
+            $vendor->vendor_name = $req->name;
+            $vendor->vendor_email =$req->email;
+            $vendor->save();
+        }
         //user table to manager table
+        if ($req->type == 'MANAGER')
+        {
+            $manager= new manager();
+            $manager->u_id=$user->u_id;
+            $manager->manager_name = $req->name;
+            $manager->manager_email =$req->email;
+            $manager->save();
+        }
         //user table to courier table
+        if ($req->type == 'COURIER')
+        {
+            $courier= new courier();
+            $courier->u_id=$user->u_id;
+            $courier->courier_name = $req->name;
+            $courier->courier_email =$req->email;
+            $courier->save();
+        }
 
         
         return redirect()->route('user.login');
@@ -127,5 +154,14 @@ class AllUserController extends Controller
             return back();
         }
 
+    }
+
+    //LOGOUT
+
+    public function logout()
+    {
+        session()->flush();
+        session()->flash('msg','Sucessfully Logged out');
+        return redirect()->route('user.login');
     }
 }

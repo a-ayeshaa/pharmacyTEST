@@ -30,6 +30,11 @@ Route::post('/registration/{type}',[AllUserController::class,'registerSubmit'])-
 Route::get('/login',[AllUserController::class,'login'])->name('user.login');
 Route::post('/login',[AllUserController::class,'loginSubmit'])->name('user.login.submit');
 
+Route::get('/logout',[AllUserController::class,'logout'])->name('logout');
+
 //CUSTOMER
 Route::get('/customer/home',[CustomerController::class,'customerHome'])->name('customer.home');
 Route::get('/customer/account/{name}',[CustomerController::class,'customerAccount'])->name('customer.account');
+
+Route::get('/customer/account/modify/{name}',[CustomerController::class,'customerModifyAccount'])->name('customer.modify.account');
+Route::post('/customer/account/modify/{name}',[CustomerController::class,'customerModifiedAccount'])->name('customer.modified.account');

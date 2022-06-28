@@ -17,6 +17,6 @@ class customer extends Model
 
     public function users()
     {
-        return $this->belongsTo(users::class,'customer_id','u_id');
+        return $this->belongsTo(users::class,'u_id','u_id');
     }
 }

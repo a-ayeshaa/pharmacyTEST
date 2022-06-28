@@ -13,21 +13,21 @@ class users extends Model
 
     public function vendor()
     {
-        return $this->hasMany(vendor::class,'vendor_id','u_id');
+        return $this->hasMany(vendor::class,'u_id','u_id');
     }
 
     public function customer()
     {
-        return $this->hasMany(customer::class,'customer_id','u_id');
+        return $this->hasMany(customer::class,'u_id','u_id');
     }
 
     public function courier()
     {
-        return $this->hasMany(courier::class,'courier_id','u_id');
+        return $this->hasMany(courier::class,'u_id','u_id');
     }
 
     public function manager()
     {
-        return $this->hasMany(manager::class,'manager_id','u_id');
+        return $this->hasMany(manager::class,'u_id','u_id');
     }
 }
