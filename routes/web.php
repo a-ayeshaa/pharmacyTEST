@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AllUserController;
 use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\ManagerController;
 
 /*
 |--------------------------------------------------------------------------
@@ -38,3 +39,11 @@ Route::get('/customer/account/{name}',[CustomerController::class,'customerAccoun
 
 Route::get('/customer/account/modify/{name}',[CustomerController::class,'customerModifyAccount'])->name('customer.modify.account');
 Route::post('/customer/account/modify/{name}',[CustomerController::class,'customerModifiedAccount'])->name('customer.modified.account');
+
+
+//MANAGER
+Route::get('/manager/home',[ManagerController::class,'managerHome'])->name('manager.home');
+Route::post('/manager/home',[ManagerController::class,'HomeAction'])->name('manager.HomeAction');
+
+Route::get('/manager/table/select',[ManagerController::class,'tableSelect'])->name('manager.tableSelect');
+Route::post('/manager/table/select',[ManagerController::class,'viewTable'])->name('manager.tableView');
