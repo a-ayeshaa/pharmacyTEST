@@ -38,3 +38,8 @@ Route::get('/customer/account/{name}',[CustomerController::class,'customerAccoun
 
 Route::get('/customer/account/modify/{name}',[CustomerController::class,'customerModifyAccount'])->name('customer.modify.account');
 Route::post('/customer/account/modify/{name}',[CustomerController::class,'customerModifiedAccount'])->name('customer.modified.account');
+
+Route::get('/customer/show/MedicineList',[CustomerController::class,'showMed'])->name('customer.show.med');
+Route::post('/customer/show/MedicineList',[CustomerController::class,'addToCart'])->name('customer.add.to.cart');
+
+Route::get('/customer/cart',[CustomerController::class,'showCart'])->name('customer.show.cart');
