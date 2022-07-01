@@ -18,8 +18,8 @@ return new class extends Migration
             $table->integer('customer_id');
             $table->integer('med_id');
             $table->string('quantity');
-            $table->string('med_name')->unique();
-            $table->integer('total_pmed');
+            $table->string('med_name');
+            $table->string('price_perUnit');
             $table->integer('total');
             $table->timestamps();
         });

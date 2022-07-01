@@ -42,6 +42,12 @@ Route::get('/customer/account/modify/{name}',[CustomerController::class,'custome
 Route::post('/customer/account/modify/{name}',[CustomerController::class,'customerModifiedAccount'])->name('customer.modified.account');
 
 
+Route::get('/customer/show/MedicineList',[CustomerController::class,'showMed'])->name('customer.show.med');
+Route::post('/customer/show/MedicineList',[CustomerController::class,'addToCart'])->name('customer.add.to.cart');
+
+Route::get('/customer/cart',[CustomerController::class,'showCart'])->name('customer.show.cart');
+
+
 //MANAGER
 Route::get('/manager/home',[ManagerController::class,'managerHome'])->name('manager.home');
 Route::post('/manager/home',[ManagerController::class,'HomeAction'])->name('manager.HomeAction');
@@ -51,6 +57,6 @@ Route::post('/manager/table/select',[ManagerController::class,'viewTable'])->nam
 
 //Courier
 Route::get('/courier/home',[CourierController::class,'courierHome'])->name('courier.home');
-//Route::get('/courier/account/{name}',[CustomerController::class,'courierName'])->name('courier.name');
 Route::get('/courier/order',[CourierController::class,'orderView'])->name('courier.order');
 Route::get('/courier/acceptedOrder',[CourierController::class,'AcceptedOrderView'])->name('courier.AcceptedOrder');
+

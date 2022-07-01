@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('med_name');
             $table->integer('price_perUnit');
             $table->date('manufacturingDate');
-            $table->date('exiryDate');
+            $table->date('expiryDate');
             $table->integer('vendor_id');
             $table->string('vendor_name')->unique();
             $table->integer('contract_id');
