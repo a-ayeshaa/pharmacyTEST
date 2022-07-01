@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AllUserController;
+use App\Http\Controllers\CourierController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\ManagerController;
 
@@ -17,7 +18,7 @@ use App\Http\Controllers\ManagerController;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect('/login');
 });
 
 //ALL USERS
@@ -47,3 +48,9 @@ Route::post('/manager/home',[ManagerController::class,'HomeAction'])->name('mana
 
 Route::get('/manager/table/select',[ManagerController::class,'tableSelect'])->name('manager.tableSelect');
 Route::post('/manager/table/select',[ManagerController::class,'viewTable'])->name('manager.tableView');
+
+//Courier
+Route::get('/courier/home',[CourierController::class,'courierHome'])->name('courier.home');
+//Route::get('/courier/account/{name}',[CustomerController::class,'courierName'])->name('courier.name');
+Route::get('/courier/order',[CourierController::class,'orderView'])->name('courier.order');
+Route::get('/courier/acceptedOrder',[CourierController::class,'AcceptedOrderView'])->name('courier.AcceptedOrder');
