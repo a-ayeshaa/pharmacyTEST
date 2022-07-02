@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AllUserController;
+use App\Http\Controllers\CourierController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\ManagerController;
 use App\Http\Controllers\vendorcontroller;
@@ -18,7 +19,7 @@ use App\Http\Controllers\vendorcontroller;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect('/login');
 });
 
 //ALL USERS
@@ -34,6 +35,8 @@ Route::post('/login',[AllUserController::class,'loginSubmit'])->name('user.login
 
 Route::get('/logout',[AllUserController::class,'logout'])->name('logout');
 
+Route::get('/back',[AllUserController::class,'back'])->name('back');
+
 //CUSTOMER
 Route::get('/customer/home',[CustomerController::class,'customerHome'])->name('customer.home');
 Route::get('/customer/account/{name}',[CustomerController::class,'customerAccount'])->name('customer.account');
@@ -42,12 +45,34 @@ Route::get('/customer/account/modify/{name}',[CustomerController::class,'custome
 Route::post('/customer/account/modify/{name}',[CustomerController::class,'customerModifiedAccount'])->name('customer.modified.account');
 
 
+Route::get('/customer/show/MedicineList',[CustomerController::class,'showMed'])->name('customer.show.med');
+Route::post('/customer/show/MedicineList',[CustomerController::class,'addToCart'])->name('customer.add.to.cart');
+
+Route::get('/customer/cart',[CustomerController::class,'showCart'])->name('customer.show.cart');
+Route::post('/customer/cart',[CustomerController::class,'confirmOrder'])->name('customer.confirm.order');
+
+Route::get('/customer/cart/remove/{item_id}',[CustomerController::class,'deleteItem'])->name('customer.delete.from.cart');
+
+Route::get('/customer/clearcart',[CustomerController::class,'clearCart'])->name('customer.clear.cart');
+
+Route::get('/customer/checkout',[CustomerController::class,'checkOut'])->name('customer.check.out');
+
+
 //MANAGER
 Route::get('/manager/home',[ManagerController::class,'managerHome'])->name('manager.home');
 Route::post('/manager/home',[ManagerController::class,'HomeAction'])->name('manager.HomeAction');
 
 Route::get('/manager/table/select',[ManagerController::class,'tableSelect'])->name('manager.tableSelect');
 Route::post('/manager/table/select',[ManagerController::class,'viewTable'])->name('manager.tableView');
+Route::get('/manager/table/customer',[ManagerController::class,'viewCustomer'])->name('manager.tableCustomer');
+Route::get('/manager/table/vendor',[ManagerController::class,'viewVendor'])->name('manager.tableVendor');
+Route::get('/manager/table/courier',[ManagerController::class,'viewCourier'])->name('manager.tableCourier');
+Route::get('/manager/table/manager',[ManagerController::class,'viewManager'])->name('manager.tableManager');
+
+Route::get('/manager/table/info/{id}',[ManagerController::class, 'userInfo'])->name('user.info');
+
+Route::get('/manager/table/info/delete/{id}',[ManagerController::class, 'userDelete'])->name('user.delete');
+
 
 
 
@@ -64,3 +89,11 @@ Route::get('/vendor/profile',[vendorcontroller::class,'profile'])->name('vendor.
 Route::get('/vendor/contracts',[vendorcontroller::class,'contracts'])->name('vendor.contracts');
 Route::get('/vendor/supply',[vendorcontroller::class,'supply'])->name('vendor.supply');
 Route::get('/vendor/market',[vendorcontroller::class,'market'])->name('vendor.market');
+
+
+//Courier
+Route::get('/courier/home',[CourierController::class,'courierHome'])->name('courier.home');
+Route::get('/courier/order',[CourierController::class,'orderView'])->name('courier.order');
+Route::get('/courier/acceptedOrder',[CourierController::class,'AcceptedOrderView'])->name('courier.AcceptedOrder');
+
+

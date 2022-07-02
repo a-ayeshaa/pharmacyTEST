@@ -8,6 +8,7 @@ use App\Models\customer;
 use App\Models\manager;
 use App\Models\vendor;
 use App\Models\courier;
+use App\Models\carts;
 
 use function PHPUnit\Framework\isNull;
 
@@ -161,7 +162,15 @@ class AllUserController extends Controller
     public function logout()
     {
         session()->flush();
+        carts::truncate();
         session()->flash('msg','Sucessfully Logged out');
         return redirect()->route('user.login');
+    }
+
+    //Back
+
+    public function back()
+    {
+        return redirect()->back();  //Back kaaj kore na eta thik korte hobe
     }
 }
