@@ -8,6 +8,9 @@ use App\Models\customer;
 use App\Models\vendor;
 use App\Models\courier;
 use App\Models\users;
+use App\Models\medicine;
+use App\Models\order;
+use App\Models\contract;
 
 class ManagerController extends Controller
 {
@@ -28,6 +31,19 @@ class ManagerController extends Controller
         {
             return redirect()->route("manager.tableSelect");
         }
+        elseif($req->action=='View Medicine')
+        {
+            return redirect()->route("manager.tableMedicine");
+        }
+        elseif($req->action=='View Orders')
+        {
+            return redirect()->route("manager.tableOrder");
+        }
+        elseif($req->action=='View Contracts')
+        {
+            return redirect()->route("manager.tableContracts");
+        }
+
     } 
 
     //TableSelect methods
@@ -88,7 +104,6 @@ class ManagerController extends Controller
     public function userInfo($id)
     {
         $val=users::where("u_id",$id)->first();
-        // return $val->customer;
         return view('ManagerView.ViewDetails')->with('val',$val);
     }
 
@@ -115,6 +130,70 @@ class ManagerController extends Controller
         }
         users::where("u_id",$id)->delete();
         return back();
+    }
+
+    //View Medicine
+
+    public function viewMed() //view medicine table
+    {
+        $val=medicine::all();
+        return view("ManagerView.ViewMed")->with('data',$val);
+    }
+
+    //Delete Medicine
+
+    public function medDelete($id)
+    {
+        medicine::where("med_id",$id)->delete();
+        return back();
+    }
+
+    //view med info
+
+    public function medInfo($id)
+    {
+        $val=medicine::where("med_id",$id)->first();
+        return view('ManagerView.MedDetails')->with('val',$val);
+    }
+
+    //View Order
+
+    public function viewOrder() //view order table
+    {
+        $val=order::all();
+        return view("ManagerView.ViewOrders")->with('data',$val);
+    }
+
+    //view order info
+
+    public function orderInfo($id)
+    {
+        $val=order::where("order_id",$id)->first();
+        return view('ManagerView.OrderDetails')->with('val',$val);
+    }
+
+    //View Contracts
+
+    public function viewContract() //view contract table
+    {
+        $val=contract::all();
+        return view("ManagerView.ViewContracts")->with('data',$val);
+    }
+
+    //Delete contracts
+
+    public function contractDelete($id)
+    {
+        contract::where("contract_id",$id)->delete();
+        return back();
+    }
+
+    //view med info
+
+    public function contractInfo($id)
+    {
+        $val=medicine::where("contract_id",$id)->first();
+        return view('ManagerView.ContractDetails')->with('val',$val);
     }
 
 }
