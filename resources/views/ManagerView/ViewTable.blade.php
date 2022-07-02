@@ -11,7 +11,7 @@
             <td>{{$it->u_id}}</td>
             <td>{{$it->u_name}}</td>
             <td><a href="{{route('user.info',['id'=>$it->u_id])}}">Details</td>
-            <td><a href="{{route('user.',['id'=>$it->u_id])}}">Delete</td>
+            <td><a href="{{route('user.delete',['id'=>$it->u_id])}}">Delete</td>
             {{-- <td><a href="{{route('Information',['Id'=>$it->customer_id])}}">{{$it->customer_name}}</a></td> --}}
             {{-- <td><a href="{{route('delete',['Id'=>$it->ID])}}">Delete</a></td> --}}
         </tr>

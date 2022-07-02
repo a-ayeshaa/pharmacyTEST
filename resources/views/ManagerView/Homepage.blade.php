@@ -20,6 +20,6 @@
     </fieldset>
     </body>
     </center>
-@endsection 
+@endsection
 
 
