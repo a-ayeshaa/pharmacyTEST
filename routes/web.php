@@ -57,6 +57,9 @@ Route::get('/customer/clearcart',[CustomerController::class,'clearCart'])->name(
 
 Route::get('/customer/checkout',[CustomerController::class,'checkOut'])->name('customer.check.out');
 
+Route::get('/customer/orders',[CustomerController::class,'showOrders'])->name('customer.show.order');
+
+
 
 //MANAGER
 Route::get('/manager/home',[ManagerController::class,'managerHome'])->name('manager.home')->middleware('managerAuth');

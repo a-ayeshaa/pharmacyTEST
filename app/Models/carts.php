@@ -24,4 +24,10 @@ class carts extends Model
     {
         return $this->hasMany(medicine::class,'med_id','med_id');
     }
+
+    public function orders_cart()
+    {
+        return $this->hasMany(orders_cart::class,'cart_id','cart_id');
+
+    }
 }
