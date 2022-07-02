@@ -9,6 +9,8 @@ class order extends Model
 {
     use HasFactory;
     protected $table='orders';
+    public $timestamps=false;
+    
     public function accepted()
     {
         return $this->hasMany(accepted_order::class,'order_id','order_id');
