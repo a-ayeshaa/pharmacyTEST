@@ -12,8 +12,8 @@ use App\Models\order;
 
 class CustomerController extends Controller
 {
-    //
-
+    // 
+ 
         //Customer
         public function customerHome()
         {

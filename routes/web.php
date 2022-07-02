@@ -5,6 +5,7 @@ use App\Http\Controllers\AllUserController;
 use App\Http\Controllers\CourierController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\ManagerController;
+use App\Http\Controllers\vendorcontroller;
 
 /*
 |--------------------------------------------------------------------------
@@ -63,8 +64,6 @@ Route::post('/manager/home',[ManagerController::class,'HomeAction'])->name('mana
 
 Route::get('/manager/table/select',[ManagerController::class,'tableSelect'])->name('manager.tableSelect');
 Route::post('/manager/table/select',[ManagerController::class,'viewTable'])->name('manager.tableView');
-
-
 Route::get('/manager/table/customer',[ManagerController::class,'viewCustomer'])->name('manager.tableCustomer');
 Route::get('/manager/table/vendor',[ManagerController::class,'viewVendor'])->name('manager.tableVendor');
 Route::get('/manager/table/courier',[ManagerController::class,'viewCourier'])->name('manager.tableCourier');
@@ -74,8 +73,27 @@ Route::get('/manager/table/info/{id}',[ManagerController::class, 'userInfo'])->n
 
 Route::get('/manager/table/info/delete/{id}',[ManagerController::class, 'userDelete'])->name('user.delete');
 
+
+
+
+
+//vendor
+Route::get('/vendor/home',[vendorcontroller::class,'home'])->name('vendor.home');
+
+Route::get('/vendor/profile/edit',[vendorcontroller::class,'editprofile'])->name('vendor.edit.account');
+Route::post('/vendor/profile/edit',[vendorcontroller::class,'editedprofile'])->name('vendor.edited.account');
+
+Route::get('/vendor/profile',[vendorcontroller::class,'profile'])->name('vendor.profile');
+
+
+Route::get('/vendor/contracts',[vendorcontroller::class,'contracts'])->name('vendor.contracts');
+Route::get('/vendor/supply',[vendorcontroller::class,'supply'])->name('vendor.supply');
+Route::get('/vendor/market',[vendorcontroller::class,'market'])->name('vendor.market');
+
+
 //Courier
 Route::get('/courier/home',[CourierController::class,'courierHome'])->name('courier.home');
 Route::get('/courier/order',[CourierController::class,'orderView'])->name('courier.order');
 Route::get('/courier/acceptedOrder',[CourierController::class,'AcceptedOrderView'])->name('courier.AcceptedOrder');
+
 
