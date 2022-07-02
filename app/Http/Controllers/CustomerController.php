@@ -8,6 +8,8 @@ use App\Models\customer;
 use App\Models\medicine;
 use App\Models\carts;
 use App\Models\order;
+use App\Models\orders_cart;
+
 
 
 class CustomerController extends Controller
@@ -140,6 +142,26 @@ class CustomerController extends Controller
                 $order->cart_id=$info->cart_id+1;
             }  
             $order->save();
+
+            $information=order::orderBy('order_id','DESC')->first();
+
+
+            $it=carts::all();
+
+            // return $items;
+            
+            foreach($it as $item)
+            {
+                $add=new orders_cart();
+                $add->order_id=$information->order_id;
+                $add->cart_id=$information->cart_id;
+                $add->items=$item->med_name;
+                $add->quantity=$item->quantity;
+                $add->med_id=$item->med_id;
+                $add->save();
+            }
+
+            
             
             return redirect()->route('customer.check.out');
         }
@@ -173,5 +195,13 @@ class CustomerController extends Controller
             $subtotal=session()->get('subtotal')-$total->total;
             session()->put('subtotal',$subtotal);
             return back();
+        }
+
+        //ORDER LIST
+
+        function showOrders()
+        {
+            $orders=order::where('customer_id',session()->get('customer_id'))->get();
+            return view('CustomerView.showOrders')->with('orders',$orders);
         }
 }
