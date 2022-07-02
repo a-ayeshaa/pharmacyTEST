@@ -15,12 +15,12 @@ return new class extends Migration
     {
         Schema::create('supply', function (Blueprint $table) {
             $table->id('supply_id');
-            $table->integer('cart_id');
+            // $table->integer('cart_id');
             $table->integer('med_id');
             $table->string('med_name');
             $table->integer('price_perUnit');
-            $table->integer('quantity');
-            $table->integer('total_price');
+            $table->integer('stock');
+            // $table->integer('total_price');
             $table->integer('vendor_id');
         });
     }

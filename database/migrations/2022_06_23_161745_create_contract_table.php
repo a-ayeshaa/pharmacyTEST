@@ -18,6 +18,8 @@ return new class extends Migration
             $table->integer('vendor_id');
             $table->string('vendor_name');
             $table->integer('cart_id');
+            $table->integer('quantity');
+            $table->integer('quantity');
             $table->dateTime('accepted_time');
             $table->dateTime('delivery_time');
             $table->string('contract_status')->defalut('pending');
