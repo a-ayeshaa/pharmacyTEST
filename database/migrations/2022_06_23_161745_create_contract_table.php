@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('vendor_name');
             $table->integer('cart_id');
             $table->integer('quantity');
-            $table->integer('quantity');
+            $table->integer('total_price');
             $table->dateTime('accepted_time');
             $table->dateTime('delivery_time');
             $table->string('contract_status')->defalut('pending');
