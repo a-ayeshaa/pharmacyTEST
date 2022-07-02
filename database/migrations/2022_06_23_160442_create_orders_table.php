@@ -18,7 +18,7 @@ return new class extends Migration
             $table->integer('cart_id');
             $table->integer('customer_id');
             $table->integer('totalbill');
-            $table->string('order_status')->default('PENDING');
+            $table->string('order_status')->default('pending');
             $table->dateTime('accepted_time')->nullable();
             $table->dateTime('delivery_time')->nullable();
         });
