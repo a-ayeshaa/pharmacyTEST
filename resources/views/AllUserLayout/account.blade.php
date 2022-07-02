@@ -1,7 +1,8 @@
 <html>
     <head>
         <h5>
-        <a href="{{route('logout')}}">LOGOUT</a>
+        <a href="{{route('logout')}}">LOGOUT</a> &nbsp;||&nbsp;
+        <a href="{{route('back')}}">BACK</a>
         </h5><br>
     </head>
     <body>
