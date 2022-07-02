@@ -164,4 +164,11 @@ class AllUserController extends Controller
         session()->flash('msg','Sucessfully Logged out');
         return redirect()->route('user.login');
     }
+
+    //Back
+
+    public function back()
+    {
+        return redirect()->back();  //Back kaaj kore na eta thik korte hobe
+    }
 }

@@ -33,6 +33,8 @@ Route::post('/login',[AllUserController::class,'loginSubmit'])->name('user.login
 
 Route::get('/logout',[AllUserController::class,'logout'])->name('logout');
 
+Route::get('/back',[AllUserController::class,'back'])->name('back');
+
 //CUSTOMER
 Route::get('/customer/home',[CustomerController::class,'customerHome'])->name('customer.home');
 Route::get('/customer/account/{name}',[CustomerController::class,'customerAccount'])->name('customer.account');
@@ -47,3 +49,12 @@ Route::post('/manager/home',[ManagerController::class,'HomeAction'])->name('mana
 
 Route::get('/manager/table/select',[ManagerController::class,'tableSelect'])->name('manager.tableSelect');
 Route::post('/manager/table/select',[ManagerController::class,'viewTable'])->name('manager.tableView');
+
+Route::get('/manager/table/customer',[ManagerController::class,'viewCustomer'])->name('manager.tableCustomer');
+Route::get('/manager/table/vendor',[ManagerController::class,'viewVendor'])->name('manager.tableVendor');
+Route::get('/manager/table/courier',[ManagerController::class,'viewCourier'])->name('manager.tableCourier');
+Route::get('/manager/table/manager',[ManagerController::class,'viewManager'])->name('manager.tableManager');
+
+Route::get('/manager/table/info/{id}',[ManagerController::class, 'userInfo'])->name('user.info');
+
+Route::get('/manager/table/info/delete/{id}',[ManagerController::class, 'userDelete'])->name('user.delete');
