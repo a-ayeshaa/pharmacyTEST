@@ -9,6 +9,7 @@ class carts extends Model
 {
     use HasFactory;
     protected $table='carts';
+
     public function order()
     {
         return $this->belongsTo(order::class,'cart_id','cart_id');

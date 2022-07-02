@@ -48,6 +48,13 @@ Route::get('/customer/show/MedicineList',[CustomerController::class,'showMed'])-
 Route::post('/customer/show/MedicineList',[CustomerController::class,'addToCart'])->name('customer.add.to.cart');
 
 Route::get('/customer/cart',[CustomerController::class,'showCart'])->name('customer.show.cart');
+Route::post('/customer/cart',[CustomerController::class,'confirmOrder'])->name('customer.confirm.order');
+
+Route::get('/customer/cart/remove/{item_id}',[CustomerController::class,'deleteItem'])->name('customer.delete.from.cart');
+
+Route::get('/customer/clearcart',[CustomerController::class,'clearCart'])->name('customer.clear.cart');
+
+Route::get('/customer/checkout',[CustomerController::class,'checkOut'])->name('customer.check.out');
 
 
 //MANAGER
