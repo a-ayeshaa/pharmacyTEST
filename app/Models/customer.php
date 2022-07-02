@@ -20,3 +20,4 @@ class customer extends Model
         return $this->belongsTo(users::class,'u_id','u_id');
     }
 }
+

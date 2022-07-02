@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AllUserController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\ManagerController;
+use App\Http\Controllers\vendorcontroller;
 
 /*
 |--------------------------------------------------------------------------
@@ -47,3 +48,19 @@ Route::post('/manager/home',[ManagerController::class,'HomeAction'])->name('mana
 
 Route::get('/manager/table/select',[ManagerController::class,'tableSelect'])->name('manager.tableSelect');
 Route::post('/manager/table/select',[ManagerController::class,'viewTable'])->name('manager.tableView');
+
+
+
+
+//vendor
+Route::get('/vendor/home',[vendorcontroller::class,'home'])->name('vendor.home');
+
+Route::get('/vendor/profile/edit',[vendorcontroller::class,'editprofile'])->name('vendor.edit.account');
+Route::post('/vendor/profile/edit',[vendorcontroller::class,'editedprofile'])->name('vendor.edited.account');
+
+Route::get('/vendor/profile',[vendorcontroller::class,'profile'])->name('vendor.profile');
+
+
+Route::get('/vendor/contracts',[vendorcontroller::class,'contracts'])->name('vendor.contracts');
+Route::get('/vendor/supply',[vendorcontroller::class,'supply'])->name('vendor.supply');
+Route::get('/vendor/market',[vendorcontroller::class,'market'])->name('vendor.market');

@@ -8,8 +8,8 @@ use App\Models\customer;
 
 class CustomerController extends Controller
 {
-    //
-
+    // 
+ 
         //Customer
         public function customerHome()
         {

@@ -22,6 +22,7 @@ class vendor extends Model
 
     public function users()
     {
-        return $this->belongsTo(users::class,'vendor_id','u_id');
+        return $this->belongsTo(users::class,'u_id','u_id');
     }
 }
+
