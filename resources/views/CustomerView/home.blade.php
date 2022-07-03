@@ -1,4 +1,7 @@
 @extends('CustomerLayout.top')
-@section('content')
-    hello {{$name}} 
+    @section('content')
+    <h2>Hello, {{$name}}</h2> 
 @endsection
+
+
+

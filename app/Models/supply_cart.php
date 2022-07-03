@@ -9,6 +9,7 @@ class supply_cart extends Model
 {
     use HasFactory;
     protected $table='supply_cart';
+    public $timestamps = false;
 
     public function supply()
     {

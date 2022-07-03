@@ -9,6 +9,7 @@ class users extends Model
 {
     use HasFactory;
     protected $table='users';
+    public $timestamps = false;
     protected $primaryKey= 'u_id';
 
     public function vendor()

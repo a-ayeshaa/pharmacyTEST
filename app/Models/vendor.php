@@ -10,6 +10,7 @@ class vendor extends Model
 {
     use HasFactory;
     protected $table='vendors';
+    public $timestamps = false;
 
     public function supply()
     {

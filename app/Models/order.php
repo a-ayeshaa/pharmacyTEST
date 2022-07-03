@@ -20,4 +20,10 @@ class order extends Model
     {
         return $this->hasOne(carts::class,'cart_id','cart_id');
     }
+
+    public function orders_cart()
+    {
+        return $this->hasMany(orders_cart::class,'order_id','order_id');
+
+    }
 }

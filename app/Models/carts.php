@@ -9,6 +9,7 @@ class carts extends Model
 {
     use HasFactory;
     protected $table='carts';
+    public $timestamps = false;
 
     public function order()
     {
@@ -23,5 +24,11 @@ class carts extends Model
     public function medicine()
     {
         return $this->hasMany(medicine::class,'med_id','med_id');
+    }
+
+    public function orders_cart()
+    {
+        return $this->hasMany(orders_cart::class,'cart_id','cart_id');
+
     }
 }
