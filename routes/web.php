@@ -114,7 +114,14 @@ Route::get('/vendor/profile',[vendorcontroller::class,'profile'])->name('vendor.
 
 
 Route::get('/vendor/contracts',[vendorcontroller::class,'contracts'])->name('vendor.contracts');
+
+
 Route::get('/vendor/supply',[vendorcontroller::class,'supply'])->name('vendor.supply');
+Route::get('/vendor/addsupply',[vendorcontroller::class,'addsupply'])->name('vendor.addsupply');
+Route::post('/vendor/addsupply',[vendorcontroller::class,'addedsupply'])->name('vendor.addedsupply');
+
+
+
 Route::get('/vendor/market',[vendorcontroller::class,'market'])->name('vendor.market');
 
 
