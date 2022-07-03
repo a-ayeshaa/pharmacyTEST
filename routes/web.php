@@ -58,6 +58,8 @@ Route::get('/customer/clearcart',[CustomerController::class,'clearCart'])->name(
 Route::get('/customer/checkout',[CustomerController::class,'checkOut'])->name('customer.check.out');
 
 Route::get('/customer/orders',[CustomerController::class,'showOrders'])->name('customer.show.order');
+Route::get('/customer/order/details/{order_id}',[CustomerController::class,'showOrderDetails'])->name('customer.order.details');
+
 
 
 

@@ -12,19 +12,20 @@
             <tr>
                 <th>OrderID</th>
                 <th>ORDER STATUS</th>
-                <th>ORDER ITEMS</th>
                 <th>BILL</th>
                 <th>ACCEPTED TIME</th>
                 <th>DELIVERY TIME</th>
+                <th>ORDER ITEMS</th>
             </tr>
             @foreach ($orders as $order)
             <tr>
                 <td> {{$order->order_id}} </td>   
                 <td> {{$order->order_status}} </td>
-                {{-- <td> {{$order->orders_cart->items}} </td> --}}
-                <td> {{$order->totalbill}} </td>
+                <td> ${{$order->totalbill}} </td>
                 <td> {{$order->accepted_time}} </td>
                 <td> {{$order->delivery_time}} </td>
+                <td> <a href="{{route('customer.order.details',['order_id'=>$order->order_id])}}">VIEW ITEMS ↓</a></td>
+
 
             </tr>
             @endforeach
