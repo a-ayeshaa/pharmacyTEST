@@ -9,6 +9,7 @@ class customer extends Model
 {
     use HasFactory;
     protected $table='customers';
+    public $timestamps = false;
     protected $primaryKey='customer_id';
     public function carts()
     {

@@ -20,7 +20,8 @@ return new class extends Migration
             $table->string('med_name');
             $table->integer('price_perUnit');
             $table->integer('stock');
-            // $table->integer('total_price');
+            $table->date('expiryDate');
+            $table->date('manufacturingDate');
             $table->integer('vendor_id');
         });
     }

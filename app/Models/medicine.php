@@ -9,6 +9,7 @@ class medicine extends Model
 {
     use HasFactory;
     protected $table='medicine';
+    public $timestamps = false;
 
     public function carts()
     {
