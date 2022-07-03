@@ -28,13 +28,13 @@
         <br><br>
         <b>Subtotal = ${{Session::get('subtotal')}}<b>
         <br><br>
-
+        
         <form action="" method="POST">
             {{ csrf_field() }}
             <a href=" {{route('customer.show.med')}} ">CONTINUE SHOPPING>></a> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
             <input type="submit" value="PLACE ORDER">
         </form>
-
+        {{ $cart->links('pagination::bootstrap-5') }}
     @else
         <br><br>
         CART IS EMPTY

@@ -17,8 +17,8 @@ return new class extends Migration
             $table->id('customer_id');
             $table->integer('u_id');
             $table->string('customer_name');
-            //$table->string('c_pass');
             $table->string('customer_email')->unique();
+            $table->string('img')->nullable();
             $table->timestamps();
         });
     }

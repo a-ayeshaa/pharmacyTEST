@@ -54,30 +54,44 @@ class CustomerController extends Controller
             // "confirmPassword"=>"required|same:password",
             // "email"=>"required"
         ]);
-        //
-        // if ($req->hasFile('profilepic'))
-        // {
-        //     return 'true';
-        // }
-        // else
-        // {
-        //     return 'false';
-        // }
-        $name = $req->file('profilepic')->getClientOriginalName();
-        $req->file('profilepic')->storeAs('public/profilepictures',session()->get('logged.customer').".jpg");
-        //
-        users::where('u_id',$u_id)
-                    ->update(
-                        ['u_name'=>$req->name,
-                        'u_email'=>$req->email,
-                        'u_pass'=>$req->password]
-                    );
-        customer::where('customer_id',$req->customer_id)
-        ->update(
-            ['customer_name'=>$req->name,
-            'customer_email'=>$req->email
-            ]
-        );
+        
+        if ($req->hasFile('profilepic'))
+        {
+            $imgname = session()->get('logged.customer').".jpg";
+            $req->file('profilepic')->storeAs('public/profilepictures',$imgname);
+            //
+            users::where('u_id',$u_id)
+                        ->update(
+                            ['u_name'=>$req->name,
+                            'u_email'=>$req->email,
+                            'u_pass'=>$req->password
+                            ]
+                        );
+            customer::where('customer_id',$req->customer_id)
+                        ->update(
+                            ['customer_name'=>$req->name,
+                            'customer_email'=>$req->email,
+                            'img'=>$imgname
+                            ]
+                        );
+        }
+        else
+        {
+            users::where('u_id',$u_id)
+                        ->update(
+                            ['u_name'=>$req->name,
+                            'u_email'=>$req->email,
+                            'u_pass'=>$req->password
+                            ]
+                        );
+            customer::where('customer_id',$req->customer_id)
+            ->update(
+                ['customer_name'=>$req->name,
+                'customer_email'=>$req->email
+                ]
+            );
+        }
+        
 
         session()->put('name',$name);
         return redirect()->route('customer.account',['name'=>$name]);
@@ -86,8 +100,10 @@ class CustomerController extends Controller
     //SHOW MEDICINE LIST
     function showMed()
     {
-        $meds=medicine::all();
-        return view('CustomerView.medlist')->with('meds',$meds);
+        // $meds=medicine::all();
+        $meds=medicine::paginate(10);
+
+        return view('CustomerView.medlist',compact('meds'));
     }
 
     //ADD TO CART
@@ -126,7 +142,7 @@ class CustomerController extends Controller
         $subtotal=session()->get('subtotal')+$req->quantity*$med->price_perUnit;
         session()->put('subtotal',$subtotal);
 
-        $meds=medicine::all();
+        $meds=medicine::paginate(10);
         return view('CustomerView.medlist')->with('meds',$meds);
     }
 
@@ -134,7 +150,7 @@ class CustomerController extends Controller
 
     public function showCart()
     {
-        $cart=carts::all();
+        $cart=carts::paginate(7);
         return view('CustomerView.showcart')->with('cart',$cart);
     }
 
@@ -212,7 +228,8 @@ class CustomerController extends Controller
         carts::where('item_id',$item_id)->delete();
         $subtotal=session()->get('subtotal')-$total->total;
         session()->put('subtotal',$subtotal);
-        return back();
+        return redirect()->route('customer.show.cart');
+
     }
 
     //ORDER LIST

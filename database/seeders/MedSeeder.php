@@ -17,7 +17,7 @@ class MedSeeder extends Seeder
     public function run()
     {
         //
-        for ($i=0; $i<15 ; $i++)
+        for ($i=0; $i<30 ; $i++)
         {
             DB::table('medicine')->insert([
                 'med_name' => 'Napa'.$i,
