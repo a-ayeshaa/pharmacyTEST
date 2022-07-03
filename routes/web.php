@@ -22,7 +22,7 @@ Route::get('/', function () {
     return redirect('/login');
 });
 
-//ALL USERS
+//ALL USERS*************************************************************************************************************************
 
 Route::get('/registration',[AllUserController::class,'registration'])->name('user.registration');
 Route::post('/registration',[AllUserController::class,'registrationSubmit'])->name('user.registration.submit');
@@ -35,9 +35,8 @@ Route::post('/login',[AllUserController::class,'loginSubmit'])->name('user.login
 
 Route::get('/logout',[AllUserController::class,'logout'])->name('logout');
 
-Route::get('/back',[AllUserController::class,'back'])->name('back');
 
-//CUSTOMER
+//CUSTOMER**************************************************************************************************************************************
 Route::get('/customer/home',[CustomerController::class,'customerHome'])->name('customer.home');
 Route::get('/customer/account/{name}',[CustomerController::class,'customerAccount'])->name('customer.account');
 
@@ -58,34 +57,49 @@ Route::get('/customer/clearcart',[CustomerController::class,'clearCart'])->name(
 Route::get('/customer/checkout',[CustomerController::class,'checkOut'])->name('customer.check.out');
 
 
-//MANAGER
+//MANAGER****************************************************************************************************************************************
+
+//Homepage
 Route::get('/manager/home',[ManagerController::class,'managerHome'])->name('manager.home')->middleware('managerAuth');
 Route::post('/manager/home',[ManagerController::class,'HomeAction'])->name('manager.HomeAction')->middleware('managerAuth');
-
+//User Table Selecting
 Route::get('/manager/table/select',[ManagerController::class,'tableSelect'])->name('manager.tableSelect')->middleware('managerAuth');
 Route::post('/manager/table/select',[ManagerController::class,'viewTable'])->name('manager.tableView')->middleware('managerAuth');
-
-
+//User Table View
 Route::get('/manager/table/customer',[ManagerController::class,'viewCustomer'])->name('manager.tableCustomer')->middleware('managerAuth');
 Route::get('/manager/table/vendor',[ManagerController::class,'viewVendor'])->name('manager.tableVendor')->middleware('managerAuth');
 Route::get('/manager/table/courier',[ManagerController::class,'viewCourier'])->name('manager.tableCourier')->middleware('managerAuth');
 Route::get('/manager/table/manager',[ManagerController::class,'viewManager'])->name('manager.tableManager')->middleware('managerAuth');
-
+//User Table Functions
 Route::get('/manager/table/info/{id}',[ManagerController::class, 'userInfo'])->name('user.info')->middleware('managerAuth');
 Route::get('/manager/table/info/delete/{id}',[ManagerController::class, 'userDelete'])->name('user.delete')->middleware('managerAuth');
-
+//Medicine Table View And Function
 Route::get('/manager/table/medicine',[ManagerController::class,'viewMed'])->name('manager.tableMedicine')->middleware('managerAuth');
 Route::get('/manager/table/info/med/{id}',[ManagerController::class, 'medInfo'])->name('med.info')->middleware('managerAuth');
 Route::get('/manager/table/info/med/delete/{id}',[ManagerController::class, 'medDelete'])->name('med.delete')->middleware('managerAuth');
-
+//Order Table View And Function
 Route::get('/manager/table/order',[ManagerController::class,'viewOrder'])->name('manager.tableOrder')->middleware('managerAuth');
 Route::get('/manager/table/info/order/{id}',[ManagerController::class, 'orderInfo'])->name('order.info')->middleware('managerAuth');
-
+//Contract Table View And Function
 Route::get('/manager/table/contract',[ManagerController::class,'viewContract'])->name('manager.tableContracts')->middleware('managerAuth');
 Route::get('/manager/table/info/contract/{id}',[ManagerController::class, 'contractInfo'])->name('contract.info')->middleware('managerAuth');
 Route::get('/manager/table/info/contract/delete/{id}',[ManagerController::class, 'contractDelete'])->name('contract.delete')->middleware('managerAuth');
+//Supply Table View And Function
+Route::get('/manager/table/supply',[ManagerController::class,'viewSupply'])->name('manager.tableSupply')->middleware('managerAuth');
+Route::get('/manager/table/info/supply/{id}',[ManagerController::class, 'supplyInfo'])->name('supply.info')->middleware('managerAuth');
+//View and Add to Cart
+Route::get('/manager/table/supply/order',[ManagerController::class,'supplyOrder'])->name('manager.tableSupplyOrder')->middleware('managerAuth');
+Route::post('/manager/table/supply/order',[ManagerController::class,'addCart'])->name('manager.addCart')->middleware('managerAuth');
+//View Cart and Confirm Order
+Route::get('/manager/table/supply/cart',[ManagerController::class,'viewSupplyCart'])->name('manager.tableSupplyCart')->middleware('managerAuth');
+Route::post('/manager/table/supply/cart',[ManagerController::class,'confirm'])->name('manager.cartConfirm')->middleware('managerAuth');
+//Remove from Cart
+Route::get('/manager/table/supply/cart/remove/{id}',[ManagerController::class,'removeCart'])->name('manager.removeCart')->middleware('managerAuth');
+//View Profile
+Route::get('/manager/profile/{id}',[ManagerController::class,'viewProfile'])->name('manager.profile')->middleware('managerAuth');
+Route::post('/manager/profile/{id}',[ManagerController::class,'editProfile'])->name('manager.editProfile')->middleware('managerAuth');
 
-//vendor
+//vendor****************************************************************************************************************************************
 Route::get('/vendor/home',[vendorcontroller::class,'home'])->name('vendor.home');
 
 Route::get('/vendor/profile/edit',[vendorcontroller::class,'editprofile'])->name('vendor.edit.account');
@@ -99,7 +113,7 @@ Route::get('/vendor/supply',[vendorcontroller::class,'supply'])->name('vendor.su
 Route::get('/vendor/market',[vendorcontroller::class,'market'])->name('vendor.market');
 
 
-//Courier
+//Courier***************************************************************************************************************************************
 Route::get('/courier/home',[CourierController::class,'courierHome'])->name('courier.home');
 Route::get('/courier/order',[CourierController::class,'orderView'])->name('courier.order');
 Route::get('/courier/acceptedOrder',[CourierController::class,'AcceptedOrderView'])->name('courier.AcceptedOrder');
