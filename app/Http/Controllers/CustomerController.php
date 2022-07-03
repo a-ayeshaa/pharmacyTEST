@@ -7,7 +7,7 @@ use App\Models\users;
 use App\Models\customer;
 use App\Models\medicine;
 use App\Models\carts;
-use App\Models\order;
+use App\Models\order; 
 
 
 class CustomerController extends Controller
