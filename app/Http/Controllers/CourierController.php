@@ -58,4 +58,10 @@ class CourierController extends Controller
         return redirect()->route('courier.order');
     }
 
+    public function courierProfile(){
+        $u_id=session()->get('logged.courier');
+        $courier=courier::where('u_id',$u_id)->first();
+        return view('CourierView.profileView')->with('courier',$courier);
+    }
+
 }
