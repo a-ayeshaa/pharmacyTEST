@@ -1,8 +1,6 @@
 @extends('AllUserLayout.account')
 @section('content')
 <body bgcolor="#CCCCFF">
-    <form action="" method="post">
-        {{ csrf_field() }}
         <table border="1">
             <tr>
                 <th>Vendor ID</th>
@@ -14,6 +12,8 @@
             </tr>
             @foreach ($val as $it)
             <tr>
+                <form action="" method="post">
+                {{ csrf_field() }}
                 <td>{{$it->vendor_id}}</td>
                 <td>{{$it->med_id}}</td>
                 <td>{{$it->med_name}}</td>
@@ -22,10 +22,16 @@
                 <td><input type="number" name="amount" placeholder="Add quantity" ></td>
                 <td><input type="hidden" name="id" value="{{$it->supply_id}}"></td>
                 <td><input type="submit" name="add" value="Add to Cart"></td>
+                </form>
             </tr>
             @endforeach
 
-        </table><br><br>
+        </table><br>
+        @error('amount')
+            {{$message}} <br> <br>
+        @enderror
+    <form action="" method="post">
+    {{ csrf_field() }}
         <input type="submit" name="add" value="View Items">
     </form>
 </body>

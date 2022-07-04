@@ -7,6 +7,7 @@
     <b>Manufacturing Date: </b>{{$val->manufacturingDate}} <br><br>
     <b>Expiry Date: </b>{{$val->expiryDate}} <br><br>
     <b>Unit Price: </b>{{$val->price_perUnit}} <br><br>
+    <b>Stock: </b>{{$val->Stock}} <br><br>
     <b>Vendor ID: </b>{{$val->vendor_id}} <br><br>
     <b>Vendor Name: </b>{{$val->vendor_name}} <br><br>
     <b>Contract ID: </b>{{$val->contract_id}} <br><br>

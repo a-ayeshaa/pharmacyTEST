@@ -1,4 +1,4 @@
-{{-- @extends('AllUserLayout.account')
+@extends('AllUserLayout.account')
 @section('content')
 <body bgcolor="#CCCCFF">
     <h3><u>Profile Details</u></h3><br><br><br>
@@ -12,4 +12,4 @@
         <input type="submit" name="edit" value="Edit">
     </form>
 </body>
-@endsection --}}
+@endsection

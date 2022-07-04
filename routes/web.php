@@ -101,8 +101,12 @@ Route::post('/manager/table/supply/cart',[ManagerController::class,'confirm'])->
 //Remove from Cart
 Route::get('/manager/table/supply/cart/remove/{id}',[ManagerController::class,'removeCart'])->name('manager.removeCart')->middleware('managerAuth');
 //View Profile
-Route::get('/manager/profile/{id}',[ManagerController::class,'viewProfile'])->name('manager.profile')->middleware('managerAuth');
-Route::post('/manager/profile/{id}',[ManagerController::class,'editProfile'])->name('manager.editProfile')->middleware('managerAuth');
+Route::get('/manager/profile',[ManagerController::class,'viewProfile'])->name('manager.profile')->middleware('managerAuth');
+Route::post('/manager/profile',[ManagerController::class,'editProfile'])->name('manager.editProfile')->middleware('managerAuth');
+//Edit Profile
+Route::get('/manager/profile/edit',[ManagerController::class,'viewEdit'])->name('manager.editPage')->middleware('managerAuth');
+Route::post('/manager/profile/edit',[ManagerController::class,'confirmEdit'])->name('manager.editProfile')->middleware('managerAuth');
+
 
 //vendor****************************************************************************************************************************************
 Route::get('/vendor/home',[vendorcontroller::class,'home'])->name('vendor.home');

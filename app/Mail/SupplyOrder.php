@@ -18,10 +18,14 @@ class SupplyOrder extends Mailable
      */
     public $sub;
     public $body;
-    public function __construct($sub,$body)
+    public $id;
+    public $order=[];
+    public function __construct($sub,$body,$id,$order)
     {
-        $this->sub=$sub;
+        $this->sub;
         $this->body=$body;
+        $this->id=$id;
+        $this->order=$order;
     }
 
     /**
@@ -31,6 +35,10 @@ class SupplyOrder extends Mailable
      */
     public function build()
     {
-        return $this->view('ManagerView.MailTemp')->with('sub',$this->sub)->with('body',$this->body);
+        return $this->view('ManagerView.MailTemp')
+        ->subject($this->sub)
+        ->with('body',$this->body)
+        ->with('id',$this->id)
+        ->with(['order',$this->order]);
     }
 }

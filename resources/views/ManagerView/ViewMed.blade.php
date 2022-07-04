@@ -8,6 +8,7 @@
             <th>Manufacturing Date</th>
             <th>Expiry Date</th>
             <th>Unit Pirice</th>
+            <th>Stock</th>
         </tr>
         @foreach ($data as $it)
         <tr>
@@ -16,11 +17,12 @@
             <td>{{$it->manufacturingDate}}</td>
             <td>{{$it->expiryDate}}</td>
             <td>{{$it->price_perUnit}}</td>
+            <td>{{$it->Stock}}</td>
             <td><a href="{{route('med.info',['id'=>$it->med_id])}}">Details</td>
             <td><a href="{{route('med.delete',['id'=>$it->med_id])}}">Delete</td>
         </tr>
         @endforeach
-
     </table>
+    {{$data->links()}}
 </body>
 @endsection
