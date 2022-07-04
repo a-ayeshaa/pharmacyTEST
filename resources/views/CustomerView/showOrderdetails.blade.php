@@ -22,7 +22,6 @@
             <tr>
                 @foreach ($collection as $c)
                     @if ($c->order_id==$order->order_id)
-                    {{-- {{$c->orders_cart->count()}} --}}
                         <tr>
                             <td rowspan="{{count($c->orders_cart)+1}}"> {{$order->order_id}} </td>   
                             <td rowspan="{{count($c->orders_cart)+1}}"> {{$order->order_status}} </td>

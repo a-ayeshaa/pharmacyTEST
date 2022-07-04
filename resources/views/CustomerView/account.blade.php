@@ -5,7 +5,12 @@
     <legend><h3>ACCOUNT INFORMATION OF {{Str::upper($customer->customer_name)}}</h3></legend> 
 
     <h4>
-        <img src="{{ asset("storage/profilepictures/".Session::get('logged.customer').".jpg")}}" alt="" srcset="" height="150" width="120">
+        {{-- <img src="{{ asset("storage/profilepictures/".Session::get('logged.customer').".jpg")}}" alt="" srcset="" height="150" width="120"> --}}
+        @if ($customer->img==NULL)
+            
+        @else
+            <img src="{{ asset("storage/profilepictures/".$customer->img)}}" alt="" srcset="" height="150" width="120">           
+        @endif
         
         <br>
         NAME : {{ $customer->customer_name }}

@@ -37,27 +37,27 @@ Route::get('/logout',[AllUserController::class,'logout'])->name('logout');
 
 
 //CUSTOMER**************************************************************************************************************************************
-Route::get('/customer/home',[CustomerController::class,'customerHome'])->name('customer.home');
-Route::get('/customer/account/{name}',[CustomerController::class,'customerAccount'])->name('customer.account');
+Route::get('/customer/home',[CustomerController::class,'customerHome'])->name('customer.home')->middleware('AuthCustomer');
+Route::get('/customer/account/{name}',[CustomerController::class,'customerAccount'])->name('customer.account')->middleware('AuthCustomer');
 
-Route::get('/customer/account/modify/{name}',[CustomerController::class,'customerModifyAccount'])->name('customer.modify.account');
-Route::post('/customer/account/modify/{name}',[CustomerController::class,'customerModifiedAccount'])->name('customer.modified.account');
+Route::get('/customer/account/modify/{name}',[CustomerController::class,'customerModifyAccount'])->name('customer.modify.account')->middleware('AuthCustomer');
+Route::post('/customer/account/modify/{name}',[CustomerController::class,'customerModifiedAccount'])->name('customer.modified.account')->middleware('AuthCustomer');
 
 
-Route::get('/customer/show/MedicineList',[CustomerController::class,'showMed'])->name('customer.show.med');
-Route::post('/customer/show/MedicineList',[CustomerController::class,'addToCart'])->name('customer.add.to.cart');
+Route::get('/customer/show/MedicineList',[CustomerController::class,'showMed'])->name('customer.show.med')->middleware('AuthCustomer');
+Route::post('/customer/show/MedicineList',[CustomerController::class,'addToCart'])->name('customer.add.to.cart')->middleware('AuthCustomer');
 
-Route::get('/customer/cart',[CustomerController::class,'showCart'])->name('customer.show.cart');
-Route::post('/customer/cart',[CustomerController::class,'confirmOrder'])->name('customer.confirm.order');
+Route::get('/customer/cart',[CustomerController::class,'showCart'])->name('customer.show.cart')->middleware('AuthCustomer');
+Route::post('/customer/cart',[CustomerController::class,'confirmOrder'])->name('customer.confirm.order')->middleware('AuthCustomer');
 
-Route::get('/customer/cart/remove/{item_id}',[CustomerController::class,'deleteItem'])->name('customer.delete.from.cart');
+Route::get('/customer/cart/remove/{item_id}',[CustomerController::class,'deleteItem'])->name('customer.delete.from.cart')->middleware('AuthCustomer');
 
-Route::get('/customer/clearcart',[CustomerController::class,'clearCart'])->name('customer.clear.cart');
+Route::get('/customer/clearcart',[CustomerController::class,'clearCart'])->name('customer.clear.cart')->middleware('AuthCustomer');
 
-Route::get('/customer/checkout',[CustomerController::class,'checkOut'])->name('customer.check.out');
+Route::get('/customer/checkout',[CustomerController::class,'checkOut'])->name('customer.check.out')->middleware('AuthCustomer');
 
-Route::get('/customer/orders',[CustomerController::class,'showOrders'])->name('customer.show.order');
-Route::get('/customer/order/details/{order_id}',[CustomerController::class,'showOrderDetails'])->name('customer.order.details');
+Route::get('/customer/orders',[CustomerController::class,'showOrders'])->name('customer.show.order')->middleware('AuthCustomer');
+Route::get('/customer/order/details/{order_id}',[CustomerController::class,'showOrderDetails'])->name('customer.order.details')->middleware('AuthCustomer');
 
 
 
