@@ -120,8 +120,10 @@ Route::get('/vendor/market',[vendorcontroller::class,'market'])->name('vendor.ma
 
 //Courier***************************************************************************************************************************************
 Route::get('/courier/home',[CourierController::class,'courierHome'])->name('courier.home');
+Route::get('/courier/profile/{name}',[CourierController::class,'courierProfile'])->name('courier.profile');
 Route::get('/courier/order',[CourierController::class,'orderView'])->name('courier.order');
 Route::get('/courier/acceptedOrder',[CourierController::class,'AcceptedOrderView'])->name('courier.AcceptedOrder');
 Route::get('/courier/{order_id}',[CourierController::class,'acceptOrder'])->name('order.accept');
 Route::get('/courier/deliverd/{order_id}',[CourierController::class,'deliveredOrder'])->name('order.deliverd');
 Route::get('/courier/mail/{order}',[CourierController::class,'sendMail'])->name('courier.mail');
+
