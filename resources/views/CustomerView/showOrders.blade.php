@@ -10,6 +10,7 @@
     @if ($orders->count()>0)
         <table border="1">
             <tr>
+                <th></th>
                 <th>OrderID</th>
                 <th>ORDER STATUS</th>
                 <th>BILL</th>
@@ -19,6 +20,11 @@
             </tr>
             @foreach ($orders as $order)
             <tr>
+                @if ($order->order_status=='pending')
+                    <td><a href="{{route('customer.order.cancel',['order_id'=>$order->order_id])}}">CANCEL ORDER</a></td>                               
+                @else       
+                    <td></td>                        
+                @endif
                 <td> {{$order->order_id}} </td>   
                 <td> {{$order->order_status}} </td>
                 <td> ${{$order->totalbill}} </td>
@@ -26,10 +32,10 @@
                 <td> {{$order->delivery_time}} </td>
                 <td> <a href="{{route('customer.order.details',['order_id'=>$order->order_id])}}">VIEW ITEMS ↓</a></td>
 
-
             </tr>
             @endforeach
         </table>
+        <h5>{{$orders->links('pagination::bootstrap-5')}}</h5>
         <br><br>
 
     @else
