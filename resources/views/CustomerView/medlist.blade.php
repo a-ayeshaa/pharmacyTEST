@@ -1,6 +1,16 @@
 @extends('CustomerLayout.top')
 @section('content')
     <h3>MEDICINE LIST</h3>
+    <form action="" method="POST">
+        {{csrf_field()}}
+    <fieldset>
+        Search by Name: <input type="text" name="search" value="{{old('search')}}"> 
+        <input type="submit" name="add" value="SEARCH"> &nbsp; &nbsp; 
+        <input type="submit" name="add" value="ORDER BY PRICE HIGHEST TO LOWEST">   &nbsp; &nbsp;   
+        <input type="submit" name="add" value="ORDER BY PRICE LOWEST TO HIGHEST">   &nbsp; &nbsp;   
+    </fieldset>
+    </form>
+    <br>
     <h4>
         <table border="1">
             <tr>
@@ -28,8 +38,6 @@
         @enderror
         <br>
         <h5>{{$meds->links('pagination::bootstrap-5')}}</h5>
-        <br>
-        <br>
     </h4>
 
     <a href="{{route('customer.show.cart')}}">SHOW CART</a>

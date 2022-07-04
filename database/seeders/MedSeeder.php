@@ -17,10 +17,10 @@ class MedSeeder extends Seeder
     public function run()
     {
         //
-        for ($i=0; $i<30 ; $i++)
+        for ($i=40; $i<50; $i++)
         {
             DB::table('medicine')->insert([
-                'med_name' => 'Napa'.$i,
+                'med_name' => 'Omidon'.$i,
                 'price_perunit' =>rand(5,10),
                 'manufacturingDate'=>date("Y/m/d"),
                 'expiryDate'=>date("Y/m/d"),

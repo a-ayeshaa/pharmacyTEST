@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Mail\OrderConfirmation;
+use App\Mail\sendComplain;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Http\Request;
 use App\Models\users;
@@ -11,8 +12,7 @@ use App\Models\medicine;
 use App\Models\carts;
 use App\Models\order;
 use App\Models\orders_cart;
-
-
+use Symfony\Component\HttpKernel\Event\RequestEvent;
 
 class CustomerController extends Controller
 {
@@ -25,6 +25,7 @@ class CustomerController extends Controller
         $customer=customer::where('u_id',$u_id)->first();
         session()->put('name',$customer->customer_name);
         session()->put('customer_id',$customer->customer_id);
+        session()->put('email',$customer->customer_email);
         return view('CustomerView.home')->with('name',$customer->customer_name);
     }
 
@@ -109,40 +110,57 @@ class CustomerController extends Controller
     //ADD TO CART
     function addToCart(Request $req)
     {
-        $this->validate($req,
-        [
-            'quantity'=> 'required|numeric|gt:0'
-        ],
-        [
-            'quantity.required'=>'Enter a quantity first',
-            'quantity.min'=>'Minimum of order quantity=1 is required'
-        ]);
-
-        //find cart_id
-
-        $info=order::orderBy('cart_id','DESC')->first();
-        
-        $med=medicine::where('med_id',$req->med_id)->first();
-        $cart= new carts();
-        if ($info==NULL)
+        if($req->add=="SEARCH")
         {
-            $cart->cart_id=1;
+            $meds=medicine::where('med_name','LIKE',$req->search.'%')->paginate(10);
+        }
+        else if($req->add=="ORDER BY PRICE HIGHEST TO LOWEST")
+        {
+            $meds=medicine::orderBy('price_perUnit','DESC')->paginate(10);
+            // return $meds;
+        }
+        else if($req->add=="ORDER BY PRICE LOWEST TO HIGHEST")
+        {
+            $meds=medicine::orderBy('price_perUnit','ASC')->paginate(10);
+            // return $meds;
         }
         else
         {
-            $cart->cart_id=$info->cart_id+1;
-        }  
-        $cart->customer_id=session()->get('customer_id');
-        $cart->med_id= $req->med_id;
-        $cart->price_perUnit=$med->price_perUnit;
-        $cart->med_name=$med->med_name;
-        $cart->quantity=$req->quantity;
-        $cart->total=$req->quantity*$med->price_perUnit;
-        $cart->save();
-        $subtotal=session()->get('subtotal')+$req->quantity*$med->price_perUnit;
-        session()->put('subtotal',$subtotal);
+            $this->validate($req,
+            [
+                'quantity'=> 'required|numeric|gt:0'
+            ],
+            [
+                'quantity.required'=>'Enter a quantity first',
+                'quantity.min'=>'Minimum of order quantity=1 is required'
+            ]);
 
-        $meds=medicine::paginate(10);
+            //find cart_id
+
+            $info=order::orderBy('cart_id','DESC')->first();
+            
+            $med=medicine::where('med_id',$req->med_id)->first();
+            $cart= new carts();
+            if ($info==NULL)
+            {
+                $cart->cart_id=1;
+            }
+            else
+            {
+                $cart->cart_id=$info->cart_id+1;
+            }  
+            $cart->customer_id=session()->get('customer_id');
+            $cart->med_id= $req->med_id;
+            $cart->price_perUnit=$med->price_perUnit;
+            $cart->med_name=$med->med_name;
+            $cart->quantity=$req->quantity;
+            $cart->total=$req->quantity*$med->price_perUnit;
+            $cart->save();
+            $subtotal=session()->get('subtotal')+$req->quantity*$med->price_perUnit;
+            session()->put('subtotal',$subtotal);
+            $meds=medicine::paginate(10);
+
+        }
         return view('CustomerView.medlist')->with('meds',$meds);
     }
 
@@ -190,12 +208,7 @@ class CustomerController extends Controller
             $add->save();
         }
         mail::to('ayesha.akhtar.1999@gmail.com')->send(new OrderConfirmation("ORDER CONFIRMATION MAIL",session()->get('customer_id'),
-                                                                                session()->get('name'),$information->cart_id));
-        // if (mail::failures()) {
-        //     return response()->Fail('Failed to send email');
-        // }else{
-        //     return response()->success('An invoice has been successfully send to your mail');
-        //     }
+                                                                               session()->get('name'),$information->cart_id));
         
         return redirect()->route('customer.check.out');
     }
@@ -236,7 +249,9 @@ class CustomerController extends Controller
 
     function showOrders()
     {
-        $orders=order::where('customer_id',session()->get('customer_id'))->get();
+        $orders=order::where('customer_id',session()->get('customer_id'))
+        ->orderBy('order_id','DESC')
+        ->paginate(5);
 
         // return $orders;
         // return $orders->orders_cart;
@@ -247,7 +262,10 @@ class CustomerController extends Controller
 
     function showOrderDetails($order_id)
     {
-        $orders=order::where('customer_id',session()->get('customer_id'))->get();
+        $orders=order::where('customer_id',session()->get('customer_id'))
+                
+        ->orderBy('order_id','DESC')
+        ->paginate(5);
         
         $collection=order::where('customer_id',session()->get('customer_id'))
                     ->where('order_id',$order_id)                
@@ -257,5 +275,42 @@ class CustomerController extends Controller
         return view('CustomerView.showOrderdetails')->with('orders',$orders)
                                                 ->with('collection',$collection);
         
+    }
+
+    //return item
+
+    public function returnItem()
+    {
+        $order=order::where('customer_id',session()->get('customer_id'))
+                    ->where('order_status','delivered')->paginate(3);
+        return view('CustomerView.returnItem')->with('order',$order);
+    }
+
+    public function returnedItem(Request $req)
+    {
+        if($req->return=='RETURN')
+        {
+            orders_cart::where('id',$req->id)->update(['return_status'=>'true']);
+        }
+        return back();
+    }
+
+    //CANCEL ORDER
+
+    function cancelOrder($order_id)
+    {
+        order::where('order_id',$order_id)->update(['order_status'=>'Cancelled']);
+        return back();
+    }
+
+    //FILE A COMPLAIN
+    function complain()
+    {
+        return view('CustomerView.complain');
+    }
+    function complainEmail(Request $req)
+    {
+        mail::to('ayesha.akhtar.1999@gmail.com')->send(new sendComplain("Complain from Customer#".$req->customer_id,$req->customer_id,
+                                                                               $req->msg));
     }
 }

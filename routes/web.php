@@ -59,6 +59,14 @@ Route::get('/customer/checkout',[CustomerController::class,'checkOut'])->name('c
 Route::get('/customer/orders',[CustomerController::class,'showOrders'])->name('customer.show.order')->middleware('AuthCustomer');
 Route::get('/customer/order/details/{order_id}',[CustomerController::class,'showOrderDetails'])->name('customer.order.details')->middleware('AuthCustomer');
 
+Route::get('/customer/return',[CustomerController::class,'returnItem'])->name('customer.return')->middleware('AuthCustomer');
+Route::post('/customer/return',[CustomerController::class,'returnedItem'])->name('customer.returned')->middleware('AuthCustomer');
+
+Route::get('/customer/order/cancel/{order_id}',[CustomerController::class,'cancelOrder'])->name('customer.order.cancel')->middleware('AuthCustomer');
+
+Route::get('/customer/complain',[CustomerController::class,'complain'])->name('customer.complain')->middleware('AuthCustomer');
+Route::post('/customer/complain',[CustomerController::class,'complainEmail'])->name('customer.complain.email')->middleware('AuthCustomer');
+
 
 
 
