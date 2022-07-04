@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('manager_email')->unique();
             //$table->date('manager_dob');
             $table->timestamps();
+            $table->string("image")->nullable();
         });
     }
 
