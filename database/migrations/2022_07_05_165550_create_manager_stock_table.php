@@ -24,7 +24,6 @@ return new class extends Migration
             $table->date('expiryDate');
             $table->date('manufacturingDate');
             $table->integer('vendor_id');
-            $table->string('vendor_name');
             $table->string('status')->default('NOT FOR SALE');
 
         });

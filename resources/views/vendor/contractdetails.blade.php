@@ -29,11 +29,12 @@ Status :
         <input type="submit" name="update" value="update">
     @elseif($con->contract_status=='Reject')
         <option value="Reject">REJECT</option>
-        </select>   
-    @endif($con->contract_status=='Accept')
+        </select> 
+      
+    @elseif($con->contract_status=='Accept')
         <option value="Accept">ACCEPT</option>
         </select>
-
+    @endif
 </form>
     
 </center>
