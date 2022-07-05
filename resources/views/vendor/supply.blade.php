@@ -33,17 +33,19 @@
                 <td>{{$sup->manufacturingDate}}</td>
                 <td>{{$sup->expiryDate}}</td>
                 <td>{{$sup->vendor_id}}</td>
-                {{-- <td><a href="{{route('med.info',['id'=>$it->med_id])}}">Details</td>
-                <td><a href="{{route('med.delete',['id'=>$it->med_id])}}">Delete</td> --}}
+                <td><a href="{{route('vendor.updatesupply',['supply_id'=>$sup->supply_id])}}">Update</td>
+                <td><a href="{{route('vendor.deletesupply',['supply_id'=>$sup->supply_id])}}">Delete</td> 
             </tr>
             @endforeach
     
         </table>
+        
         <br>
         <button type="button" onclick="window.location='{{route('vendor.addsupply')}}'">Add</button>
 
     </body>
 </center>
+{{$supp->links()}}
     
     @endsection 
 

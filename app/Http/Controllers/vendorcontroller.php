@@ -3,7 +3,8 @@
 namespace App\Http\Controllers;
 use App\Models\users;
 use App\Models\vendor;
-use App\Models\supply; 
+use App\Models\supply;
+use App\Models\contract;
 
 use Illuminate\Http\Request;
 
@@ -15,7 +16,43 @@ class vendorcontroller extends Controller
         session()->put('logged.vendor_id',$vendor->vendor_id);
         return view ('vendor.home');
     }
+    public function contractdetails($contract_id){
+        $contract=contract::where('contract_id',$contract_id)->get();
+        
+        session()->put('contract.contract_id',$contract_id);
+        return view ('vendor.contractdetails')->with('contract',$contract);
 
+    }
+    //not done/////////////////////////////////////////////////////////////////////////////////////////////
+    public function contractstatus(Request $request){
+        $status=$request->status;
+        if($status=='Accept'){
+            $contract_id=session()->get('contract.contract_id');
+            $modified = contract::where('contract_id',$contract_id) 
+                        ->update(['contract_status'=>$status]);
+        
+            
+
+
+
+
+
+        
+
+        
+        
+        }
+        elseif($status=='Reject'){
+            $contract_id=session()->get('contract.contract_id');
+            $modified = contract::where('contract_id',$contract_id) 
+                        ->update(['contract_status'=>$status]);
+
+        }
+        
+        
+        return redirect()->route('vendor.contracts');
+
+    }
 
 
     public function profile(Request $request){
@@ -40,10 +77,14 @@ class vendorcontroller extends Controller
         $u_id=$req->u_id;
         $this->validate($req,
         [
-            // "name"=> "required|regex:/^[A-Za-z- .,]+$/i",
-            // "password"=>"required|min:8|regex:/^.*(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[!@#$ %^&*~><.,:;]).*$/i",
-            // "confirmPassword"=>"required|same:password",
-            // "email"=>"required"
+            "name"=> "required|regex:/^[A-Za-z- .,]+$/i",
+            "password"=>"required|min:8|regex:/^.*(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[!@#$ %^&*~><.,:;]).*$/i",
+            "confirmPassword"=>"required|same:password",
+            "email"=>"required|unique:users,u_email"
+        ],
+        [
+            "password.regex"=>"Password must contain minimum 1 special character and minimum 1 upper case letter."
+
         ]);
 
         $modified = users::where('u_id',$u_id) 
@@ -52,7 +93,6 @@ class vendorcontroller extends Controller
                                 'u_email'=>$req->email,
                                 'u_pass'=>$req->password]
                             );
-        //return $modified;
         
         $vendor=vendor::where('u_id',$u_id)
                             ->update(
@@ -66,7 +106,9 @@ class vendorcontroller extends Controller
 
 
     public function contracts(){
-        $contrat=contract::all();
+        
+        $contract=contract::select('contract_id','manager_name','total_price','contract_status')->distinct()->get();
+        
         return view ('vendor.contracts')->with('contract',$contract);
     }
 
@@ -79,16 +121,72 @@ class vendorcontroller extends Controller
 
     public function supply(){
         $v_id=session()->get('logged.vendor_id');
-        $supp=supply::where('vendor_id',$v_id)->get();
+        $supp=supply::where('vendor_id',$v_id)->paginate(5);
         return view('vendor.supply')->with('supp',$supp);
+
     }
 
 
     public function addsupply(){
+        
         return view('vendor.addsupply');
+    }
+    
+    public function updatesupply($supply_id){
+        
+        $supply=supply::where('supply_id',$supply_id)->first();
+        return view('vendor.updatesupply')->with('supply',$supply);
+    }
+
+    public function updatedsupply(Request $req,$supply_id){
+        $addedstock=$req->stock;
+        $supply=supply::where('supply_id',$supply_id)->first();
+        $stock=$supply->stock;
+        $addedstock=$addedstock+$stock;
+        
+        $this->validate($req,
+        [
+            "price_perUnit"=>"required|numeric|min:0|not_in:0",
+            "stock"=>"required|numeric|min:1|not_in:0",
+            "expiryDate"=>"required|after:yesterday",
+            "manufacturingDate"=>"required|before:today"
+        ]);
+
+        $modified = supply::where('supply_id',$supply_id) 
+                            ->update(
+                                ['price_perUnit'=>$req->price_perUnit,
+                                'stock'=>$addedstock,
+                                'expiryDate'=>$req->expiryDate,
+                                'manufacturingDate'=>$req->manufacturingDate]
+                            );
+        
+        return redirect()->route('vendor.supply');
+    }
+    //not done
+
+    public function deletesupply(){
+        
+        return ;
     }
 
     public function addedsupply(Request $req){
+        $this->validate($req,
+        [
+            "med_id"=> "required|unique:supply,med_id",
+            "med_name"=>"required|unique:supply,med_name",
+            "price_perUnit"=>"required|numeric|min:0|not_in:0",
+            "stock"=>"required|numeric|min:1|not_in:1",
+            "expiryDate"=>"required|after:yesterday",
+            "manufacturingDate"=>"required|before:today"
+        ],
+        [
+            "med_name.unique"=>"This med already Exists.If You want to add,Please Update stock"
+        ]  
+    
+    );
+        
+
+
         session()->flash("added","Sucessfully Added");
         $v_id=session()->get('logged.vendor_id');
         $supply= new supply();
