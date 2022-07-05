@@ -14,7 +14,7 @@
 
         </h3>
     </head>
-    <body>
+    <body bgcolor="#CCCCFF">
         @yield('content')
     </body>
     <br> <br> <br>
