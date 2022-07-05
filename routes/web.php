@@ -5,7 +5,7 @@ use App\Http\Controllers\AllUserController;
 use App\Http\Controllers\CourierController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\ManagerController;
-use App\Http\Controllers\vendorcontroller;
+use App\Http\Controllers\vendorcontroller; 
 
 /*
 |--------------------------------------------------------------------------

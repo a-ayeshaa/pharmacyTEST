@@ -16,8 +16,12 @@ class medicine extends Model
         return $this->belongsTo(carts::class,'cart_id','cart_id');
     }
 
-    public function contract()
+    // public function contract()
+    // {
+    //     return $this->belongsTo(contract::class,'contract_id','contract_id');
+    // }
+    public function manager_stock()
     {
-        return $this->belongsTo(contract::class,'contract_id','contract_id');
+        return $this->belongsTo(manager_stock::class,'med_id','med_id');
     }
 }

@@ -16,13 +16,17 @@ class contract extends Model
         return $this->belongsTo(vendor::class,'vendor_id','vendor_id');
     }
 
-    public function medicine()
-    {
-        return $this->hasMany(medicine::class,'contract_id','contract_id');
-    }
+    // public function medicine()
+    // {
+    //     return $this->hasMany(medicine::class,'contract_id','contract_id');
+    // }
 
     public function supply_cart()
     {
         return $this->belongsTo(supply_cart::class,'cart_id','cart_id');
+    }
+    public function manager_stock()
+    {
+        return $this->belongsTo(manager_stock::class,'contract_id','contract_id');
     }
 }
