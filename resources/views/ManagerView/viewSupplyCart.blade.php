@@ -1,6 +1,7 @@
 @extends('AllUserLayout.account')
 @section('content')
 <body bgcolor="#CCCCFF">
+    <h2><u>Cart Information</u></h2>
     <table border="1">
         <tr>
             <th>Cart ID</th>
@@ -21,11 +22,11 @@
             <td>{{$it->quantity}}</td>
             <td>{{$it->total_price}}</td>
             {{-- <td>{{($it->stock*$it->price_perUnit)}}</td> --}}
-            <td><a href="{{route('manager.removeCart',['id'=>$it->cart_id])}}">Delete</td>
+            <td><a href="{{route('manager.removeCart',['id'=>$it->cart_id])}}">Remove</td>
         </tr>
         @endforeach
-    </table><br><br><br><br>&nbsp;
-    Grand Total = Tk. {{$total}}
+    </table><br><br><br><br>
+    Grand Total = Tk. {{$total}} <br><br>
     <form action="" method="post">
         {{ csrf_field() }}
         <input type="submit" name="confirm" value="Confirm Order">

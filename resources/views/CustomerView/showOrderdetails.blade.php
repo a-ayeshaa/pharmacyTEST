@@ -11,6 +11,7 @@
     @if ($orders->count()>0)
         <table border="1">
             <tr>
+                <th></th>
                 <th>OrderID</th>
                 <th>ORDER STATUS</th>
                 <th>BILL</th>
@@ -23,6 +24,11 @@
                 @foreach ($collection as $c)
                     @if ($c->order_id==$order->order_id)
                         <tr>
+                            <td rowspan="{{count($c->orders_cart)+1}}">
+                            @if ($order->order_status=='pending')
+                                <a href="{{route('customer.order.cancel',['order_id'=>$order->order_id])}}">CANCEL ORDER</a>                                                         
+                            @endif
+                            </td>  
                             <td rowspan="{{count($c->orders_cart)+1}}"> {{$order->order_id}} </td>   
                             <td rowspan="{{count($c->orders_cart)+1}}"> {{$order->order_status}} </td>
                             <td rowspan="{{count($c->orders_cart)+1}}"> ${{$order->totalbill}} </td>
@@ -32,9 +38,14 @@
                                 <tr>
                                     <td>{{$it->items}}</td>
                                 </tr>
-                                @endforeach
+                                @endforeach                            
                         </tr>
                     @else
+                        <td>
+                        @if ($order->order_status=='pending')
+                            <a href="{{route('customer.order.cancel',['order_id'=>$order->order_id])}}">CANCEL ORDER</a>                                                         
+                        @endif
+                        </td>  
                         <td> {{$order->order_id}} </td>   
                         <td> {{$order->order_status}} </td>
                         <td> ${{$order->totalbill}} </td>
@@ -48,6 +59,8 @@
             @endforeach
         </table>
         <br><br>
+        <h5>{{$orders->links('pagination::bootstrap-5')}}</h5>
+
 
     @else
         <br><br>

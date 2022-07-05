@@ -7,24 +7,19 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 
-class SupplyOrder extends Mailable
+class orderAccepted extends Mailable
 {
     use Queueable, SerializesModels;
+
+    public $order; 
 
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public $sub;
-    public $body;
-    public $id;
-    public $order=[];
-    public function __construct($sub,$body,$id,$order)
+    public function __construct($order)
     {
-        $this->sub;
-        $this->body=$body;
-        $this->id=$id;
         $this->order=$order;
     }
 
@@ -35,10 +30,6 @@ class SupplyOrder extends Mailable
      */
     public function build()
     {
-        return $this->view('ManagerView.MailTemp')
-        ->subject($this->sub)
-        ->with('body',$this->body)
-        ->with('id',$this->id)
-        ->with(['order',$this->order]);
+        return $this->view('CourierView.AcceptedOrder');
     }
 }

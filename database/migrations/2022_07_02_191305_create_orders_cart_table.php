@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('items');
             $table->integer('quantity');
             $table->integer('med_id');
+            $table->string('return_status')->default('false');
 
         });
     }

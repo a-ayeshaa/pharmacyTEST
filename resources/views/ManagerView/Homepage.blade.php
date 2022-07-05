@@ -1,6 +1,11 @@
 {{-- {{ url()->previous() }} --}}
 @extends('AllUserLayout.account')
 @section('content')
+@if ($manager->image==NULL)
+
+@else
+    <img src="{{ asset("storage/propics/".$manager->image)}}" alt="" srcset="" height="150" width="150">
+@endif
 <h2>Hello, {{Session::get('name')}}</h2>
 <center>
     <body bgcolor="#CCCCFF">

@@ -59,6 +59,14 @@ Route::get('/customer/checkout',[CustomerController::class,'checkOut'])->name('c
 Route::get('/customer/orders',[CustomerController::class,'showOrders'])->name('customer.show.order')->middleware('AuthCustomer');
 Route::get('/customer/order/details/{order_id}',[CustomerController::class,'showOrderDetails'])->name('customer.order.details')->middleware('AuthCustomer');
 
+Route::get('/customer/return',[CustomerController::class,'returnItem'])->name('customer.return')->middleware('AuthCustomer');
+Route::post('/customer/return',[CustomerController::class,'returnedItem'])->name('customer.returned')->middleware('AuthCustomer');
+
+Route::get('/customer/order/cancel/{order_id}',[CustomerController::class,'cancelOrder'])->name('customer.order.cancel')->middleware('AuthCustomer');
+
+Route::get('/customer/complain',[CustomerController::class,'complain'])->name('customer.complain')->middleware('AuthCustomer');
+Route::post('/customer/complain',[CustomerController::class,'complainEmail'])->name('customer.complain.email')->middleware('AuthCustomer');
+
 
 
 
@@ -89,6 +97,23 @@ Route::get('/manager/table/info/order/{id}',[ManagerController::class, 'orderInf
 Route::get('/manager/table/contract',[ManagerController::class,'viewContract'])->name('manager.tableContracts')->middleware('managerAuth');
 Route::get('/manager/table/info/contract/{id}',[ManagerController::class, 'contractInfo'])->name('contract.info')->middleware('managerAuth');
 Route::get('/manager/table/info/contract/delete/{id}',[ManagerController::class, 'contractDelete'])->name('contract.delete')->middleware('managerAuth');
+//Supply Table View And Function
+Route::get('/manager/table/supply',[ManagerController::class,'viewSupply'])->name('manager.tableSupply')->middleware('managerAuth');
+Route::get('/manager/table/info/supply/{id}',[ManagerController::class, 'supplyInfo'])->name('supply.info')->middleware('managerAuth');
+//View and Add to Cart
+Route::get('/manager/table/supply/order',[ManagerController::class,'supplyOrder'])->name('manager.tableSupplyOrder')->middleware('managerAuth');
+Route::post('/manager/table/supply/order',[ManagerController::class,'addCart'])->name('manager.addCart')->middleware('managerAuth');
+//View Cart and Confirm Order
+Route::get('/manager/table/supply/cart',[ManagerController::class,'viewSupplyCart'])->name('manager.tableSupplyCart')->middleware('managerAuth');
+Route::post('/manager/table/supply/cart',[ManagerController::class,'confirm'])->name('manager.cartConfirm')->middleware('managerAuth');
+//Remove from Cart
+Route::get('/manager/table/supply/cart/remove/{id}',[ManagerController::class,'removeCart'])->name('manager.removeCart')->middleware('managerAuth');
+//View Profile
+Route::get('/manager/profile',[ManagerController::class,'viewProfile'])->name('manager.profile')->middleware('managerAuth');
+Route::post('/manager/profile',[ManagerController::class,'editProfile'])->name('manager.editProfile')->middleware('managerAuth');
+//Edit Profile
+Route::get('/manager/profile/edit',[ManagerController::class,'viewEdit'])->name('manager.editPage')->middleware('managerAuth');
+Route::post('/manager/profile/edit',[ManagerController::class,'confirmEdit'])->name('manager.editProfile')->middleware('managerAuth');
 
 
 //vendor-----------------------------------
@@ -116,30 +141,14 @@ Route::get('/vendor/supply/delete',[vendorcontroller::class,'deletesupply'])->na
 //market
 Route::get('/vendor/market',[vendorcontroller::class,'market'])->name('vendor.market')->middleware('authvendor');
 
-//Courier----------------------------------------------
 
+
+//Courier***************************************************************************************************************************************
 Route::get('/courier/home',[CourierController::class,'courierHome'])->name('courier.home');
+Route::get('/courier/profile/{name}',[CourierController::class,'courierProfile'])->name('courier.profile');
 Route::get('/courier/order',[CourierController::class,'orderView'])->name('courier.order');
 Route::get('/courier/acceptedOrder',[CourierController::class,'AcceptedOrderView'])->name('courier.AcceptedOrder');
-//Supply Table View And Function
-Route::get('/manager/table/supply',[ManagerController::class,'viewSupply'])->name('manager.tableSupply')->middleware('managerAuth');
-Route::get('/manager/table/info/supply/{id}',[ManagerController::class, 'supplyInfo'])->name('supply.info')->middleware('managerAuth');
-//View and Add to Cart
-Route::get('/manager/table/supply/order',[ManagerController::class,'supplyOrder'])->name('manager.tableSupplyOrder')->middleware('managerAuth');
-Route::post('/manager/table/supply/order',[ManagerController::class,'addCart'])->name('manager.addCart')->middleware('managerAuth');
-//View Cart and Confirm Order
-Route::get('/manager/table/supply/cart',[ManagerController::class,'viewSupplyCart'])->name('manager.tableSupplyCart')->middleware('managerAuth');
-Route::post('/manager/table/supply/cart',[ManagerController::class,'confirm'])->name('manager.cartConfirm')->middleware('managerAuth');
-//Remove from Cart
-Route::get('/manager/table/supply/cart/remove/{id}',[ManagerController::class,'removeCart'])->name('manager.removeCart')->middleware('managerAuth');
-//View Profile
-Route::get('/manager/profile/{id}',[ManagerController::class,'viewProfile'])->name('manager.profile')->middleware('managerAuth');
-Route::post('/manager/profile/{id}',[ManagerController::class,'editProfile'])->name('manager.editProfile')->middleware('managerAuth');
-
-
-
-
-
-
-
+Route::get('/courier/{order_id}',[CourierController::class,'acceptOrder'])->name('order.accept');
+Route::get('/courier/deliverd/{order_id}',[CourierController::class,'deliveredOrder'])->name('order.deliverd');
+Route::get('/courier/mail/{order}',[CourierController::class,'sendMail'])->name('courier.mail');
 

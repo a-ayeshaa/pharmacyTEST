@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\orderAccepted;
 use App\Models\courier;
 use App\Models\order;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
+use PDO;
 
 class CourierController extends Controller
 {
@@ -22,9 +25,43 @@ class CourierController extends Controller
     }
 
     public function AcceptedOrderView(){
+        $status="accepted";
+        $AcceptedOrders=order::where('order_status',$status)->get();
+        return view ('CourierView.AcceptedOrders')->with('AcceptedOrders',$AcceptedOrders);
+    }
+
+    public function acceptOrder($order_id){
+        $modified = order::where('order_id',$order_id)
+        ->update(
+            [
+                'order_status'=>'accepted'
+            ]
+            );
+        $order=order::where('order_id',$order_id)->first();
+        
+
+        return redirect()->route('courier.mail',['order_id'=>$order_id])->with('order',$order);
+    }
+
+    public function deliveredOrder($order_id){
+        $modified = order::where('order_id',$order_id)
+        ->update(
+            [
+                'order_status'=>'deliverd'
+            ]
+        );
+        return redirect()->route('courier.AcceptedOrder');
+    }
+
+    public function sendMail($order_id){
+        Mail::to('fake@mail.com')->send(new orderAccepted($order_id));
+        return redirect()->route('courier.order');
+    }
+
+    public function courierProfile(){
         $u_id=session()->get('logged.courier');
         $courier=courier::where('u_id',$u_id)->first();
-        session()->put('name',$courier->courier_name);
-        return view ('CourierView.AcceptedOrders')->with('name',$courier->courier_name);
+        return view('CourierView.profileView')->with('courier',$courier);
     }
+
 }
