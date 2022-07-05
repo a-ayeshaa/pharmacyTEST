@@ -9,6 +9,7 @@ class courier extends Model
 {
     use HasFactory;
     protected $table='courier';
+    public $timestamps = false;
 
     public function accepted_order()
     {

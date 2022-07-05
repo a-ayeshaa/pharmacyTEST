@@ -2,7 +2,7 @@
 @section('content')
     <h3>MODIFY ACCOUNT INFORMATION OF {{Str::upper($customer->customer_name)}}</h3> 
 
-    <form action="" method="POST" >
+    <form action="" method="POST" enctype="multipart/form-data">
         {{ csrf_field() }}
         USER ID : <input type="text" name="u_id" placeholder=" {{$customer->users->u_id}}" value=" {{$customer->users->u_id}} " readonly>
         <br><br>
@@ -31,6 +31,14 @@
         @error('confirmPassword')
             {{ $message}}<br>
         @enderror
+        <br>
+        <input type="file" name="profilepic">
+        @error('profilepic')
+            {{ $message}}<br>
+        @enderror
+        <br><br>
         <input type="submit" name="modify" value="MODIFY">
+
+        
     </form>
 @endsection

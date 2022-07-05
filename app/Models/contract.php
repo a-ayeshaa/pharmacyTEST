@@ -9,7 +9,8 @@ class contract extends Model
 {
     use HasFactory;
     protected $table='contract';
-    public $timestamps= false;
+    public $timestamps = false;
+
     public function vendor()
     {
         return $this->belongsTo(vendor::class,'vendor_id','vendor_id');

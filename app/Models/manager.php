@@ -9,6 +9,7 @@ class manager extends Model
 {
     use HasFactory;
     protected $table='manager';
+    public $timestamps = false;
 
     public function supply_cart()
     {

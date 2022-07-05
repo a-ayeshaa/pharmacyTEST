@@ -22,8 +22,15 @@
                 </tr>   
             @endforeach
         </table>
+        <br>
         @error('quantity')
             {{$message}}
         @enderror
+        <br>
+        <h5>{{$meds->links('pagination::bootstrap-5')}}</h5>
+        <br>
+        <br>
     </h4>
+
+    <a href="{{route('customer.show.cart')}}">SHOW CART</a>
 @endsection

@@ -13,18 +13,13 @@
             <td>{{$it->vendor_id}}</td>
             <td>{{$it->contract_status}}</td>
             <td><a href="{{route('contract.info',['id'=>$it->contract_id])}}">Details</td>
-            @if ($it->contract_status=="Accepted")
-            {
+            @if ($it->contract_status=="Accepted" || $it->contract_status=="Pending")
                 <td><a href="{{route('contract.delete',['id'=>$it->contract_id])}}">Delete</td>
-            }   
             @else
-            {
                 <td></td>
-            }
             @endif
         </tr>
         @endforeach
-
     </table>
 </body>
 @endsection
