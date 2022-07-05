@@ -85,28 +85,32 @@ Route::get('/manager/table/contract',[ManagerController::class,'viewContract'])-
 Route::get('/manager/table/info/contract/{id}',[ManagerController::class, 'contractInfo'])->name('contract.info')->middleware('managerAuth');
 Route::get('/manager/table/info/contract/delete/{id}',[ManagerController::class, 'contractDelete'])->name('contract.delete')->middleware('managerAuth');
 
-//vendor
-Route::get('/vendor/home',[vendorcontroller::class,'home'])->name('vendor.home');
+//vendor-----------------------------------
+//sweet.home
+Route::get('/vendor/home',[vendorcontroller::class,'home'])->name('vendor.home')->middleware('authvendor');
+//profile edit
+Route::get('/vendor/profile/edit',[vendorcontroller::class,'editprofile'])->name('vendor.edit.account')->middleware('authvendor');
+Route::post('/vendor/profile/edit',[vendorcontroller::class,'editedprofile'])->name('vendor.edited.account')->middleware('authvendor');
+//profile
+Route::get('/vendor/profile',[vendorcontroller::class,'profile'])->name('vendor.profile')->middleware('authvendor');
 
-Route::get('/vendor/profile/edit',[vendorcontroller::class,'editprofile'])->name('vendor.edit.account');
-Route::post('/vendor/profile/edit',[vendorcontroller::class,'editedprofile'])->name('vendor.edited.account');
+//contract
+Route::get('/vendor/contracts',[vendorcontroller::class,'contracts'])->name('vendor.contracts')->middleware('authvendor');
+Route::get('/vendor/contractdetails/{contract_id}',[vendorcontroller::class,'contractdetails'])->name('vendor.contractdetails')->middleware('authvendor');
+Route::post('/vendor/contractdetails/{contract_id}',[vendorcontroller::class,'contractstatus'])->name('vendor.contractstatus')->middleware('authvendor');
 
-Route::get('/vendor/profile',[vendorcontroller::class,'profile'])->name('vendor.profile');
+//supply
+Route::get('/vendor/supply',[vendorcontroller::class,'supply'])->name('vendor.supply')->middleware('authvendor');
+Route::get('/vendor/addsupply',[vendorcontroller::class,'addsupply'])->name('vendor.addsupply')->middleware('authvendor');
+Route::post('/vendor/addsupply',[vendorcontroller::class,'addedsupply'])->name('vendor.addedsupply')->middleware('authvendor');
+Route::get('/vendor/supply/update/{supply_id}',[vendorcontroller::class,'updatesupply'])->name('vendor.updatesupply')->middleware('authvendor');
+Route::post('/vendor/supply/update/{supply_id}',[vendorcontroller::class,'updatedsupply'])->name('vendor.updatedsupply')->middleware('authvendor');
+Route::get('/vendor/supply/delete',[vendorcontroller::class,'deletesupply'])->name('vendor.deletesupply')->middleware('authvendor');
 
+//market
+Route::get('/vendor/market',[vendorcontroller::class,'market'])->name('vendor.market')->middleware('authvendor');
 
-Route::get('/vendor/contracts',[vendorcontroller::class,'contracts'])->name('vendor.contracts');
-
-
-Route::get('/vendor/supply',[vendorcontroller::class,'supply'])->name('vendor.supply');
-Route::get('/vendor/addsupply',[vendorcontroller::class,'addsupply'])->name('vendor.addsupply');
-Route::post('/vendor/addsupply',[vendorcontroller::class,'addedsupply'])->name('vendor.addedsupply');
-
-
-
-Route::get('/vendor/market',[vendorcontroller::class,'market'])->name('vendor.market');
-
-
-//Courier
+//Courier----------------------------------------------
 Route::get('/courier/home',[CourierController::class,'courierHome'])->name('courier.home');
 Route::get('/courier/order',[CourierController::class,'orderView'])->name('courier.order');
 Route::get('/courier/acceptedOrder',[CourierController::class,'AcceptedOrderView'])->name('courier.AcceptedOrder');

@@ -13,16 +13,20 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('supply', function (Blueprint $table) {
-            $table->id('supply_id');
-            // $table->integer('cart_id');
-            $table->integer('med_id')->unique();
+        Schema::create('manager_stock', function (Blueprint $table) {
+            $table->id('med_id');
             $table->string('med_name');
-            $table->integer('price_perUnit');
-            $table->integer('stock');
+            $table->integer('Stock');
+            $table->float('costprice_perUnit');
+            $table->float('sellprice_perUnit')->nullable();
+            $table->float('profit_perUnit')->nullable();
+            $table->integer('contract_id');
             $table->date('expiryDate');
             $table->date('manufacturingDate');
             $table->integer('vendor_id');
+            $table->string('vendor_name');
+            $table->string('status')->default('NOT FOR SALE');
+
         });
     }
 
@@ -33,6 +37,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('supply');
+        Schema::dropIfExists('manager_stock');
     }
 };
