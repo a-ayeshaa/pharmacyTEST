@@ -5,7 +5,7 @@ use App\Models\users;
 use App\Models\vendor;
 use App\Models\supply;
 use App\Models\contract;
-use App\Models\manager_stock;
+use App\Models\medicine;
 
 use Illuminate\Http\Request;
 
@@ -24,34 +24,57 @@ class vendorcontroller extends Controller
         return view ('vendor.contractdetails')->with('contract',$contract);
 
     }
-    //not done/////////////////////////////////////////////////////////////////////////////////////////////
+
     public function contractstatus(Request $request){
         $status=$request->status;
         if($status=='Accept'){
-            
+            //contract update status
             $contract_id=session()->get('contract.contract_id');
             $modified = contract::where('contract_id',$contract_id) 
                         ->update(['contract_status'=>$status]);
         
             $new=contract::where('contract_id',$contract_id)->get();
             
+
+            
+            //add money to vendor accout
+            $sale=contract::where('contract_id',$contract_id)->value('total_price');
+            $vendor_id=session()->get('logged.vendor_id');
+            $vendor_account=vendor::where('vendor_id',$vendor_id)->value('account');
+            $vendor_account=$vendor_account + $sale ;
+            $update=vendor::where('vendor_id',$vendor_id)
+                            ->update(['account'=>$vendor_account]);
             
             
+            //add medicine
             foreach ($new as $item ) {
+                $vendor_name=vendor::where('vendor_id',$item->vendor_id)->value('vendor_name');
                 $new1=supply::where('med_name',$item->med_name)->first();
-                $stock= new manager_stock();
-                $stock->med_id = $new1->med_id;
-                $stock->med_name =$item->med_name;
-                $stock->costprice_perUnit =$new1->price_perUnit;
-                $stock->stock = $item->quantity;
-                $stock->contract_id = $contract_id;
-                $stock->expiryDate = $new1->expiryDate;
-                $stock->manufacturingDate = $new1->manufacturingDate;
-                $stock->vendor_id=$item->vendor_id;
-                $stock->save();
+                $price=$new1->price_perUnit;
+                $price=$price*1.4;
+
                 
+                $med= new medicine();
+                $med->med_id = $new1->med_id;
+                $med->med_name =$item->med_name;
+                $med->price_perUnit =$price;
+                $med->stock = $item->quantity;
+                $med->contract_id = $contract_id;
+                $med->expiryDate = $new1->expiryDate;
+                $med->manufacturingDate = $new1->manufacturingDate;
+                $med->vendor_id=$item->vendor_id;
+                $med->vendor_name=$vendor_name;
+                $med->save();
+                //update supply table
+                $quantity=$item->quantity;
+                $stock=supply::where('med_id',$new1->med_id)->value('stock');
+                $stock=$stock-$quantity;
+                $modified2 = supply::where('med_id',$new1->med_id) 
+                        ->update(['stock'=>$stock]);
+ 
                 
-            }        
+            }
+            
             
         }
         elseif($status=='Reject'){

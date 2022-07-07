@@ -9,7 +9,7 @@
 
     @extends('vendor.layouts.toplayout')
     @section('content')
-    <center><h2><label style="color:rgb(112, 30, 137)">MARKET</label></h2></center>
+    <center><h2><label style="color:rgb(112, 30, 137)">MARKET</label></h2>
     <body bgcolor="#CCCCFF">
         <table border="1">
             <tr>
@@ -20,7 +20,7 @@
                 <th>Stock</th>
                 <th>Manufacturing Date</th>
                 <th>Expiry Date</th>
-                <th>Vendor Id</th>
+                
             </tr>
             @foreach ($supp as $sup)
             <tr>
@@ -31,10 +31,9 @@
                 <td>{{$sup->stock}}</td>
                 <td>{{$sup->manufacturingDate}}</td>
                 <td>{{$sup->expiryDate}}</td>
-                <td>{{$sup->vendor_id}}</td>
-                {{-- <td><a href="{{route('med.info',['id'=>$it->med_id])}}">Details</td>
-                <td><a href="{{route('med.delete',['id'=>$it->med_id])}}">Delete</td> --}}
+                
             </tr>
+        
             @endforeach
     
         </table>
@@ -43,7 +42,7 @@
 
     </body>
 
-    
+    </center>
     @endsection 
 
     
