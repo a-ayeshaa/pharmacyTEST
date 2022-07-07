@@ -9,7 +9,7 @@
 </head>
 @extends('vendor.layouts.toplayout')
 @section('content')
-<body bgcolor="#CCCCFF">
+<body>
     <fieldset>
     <legend><h1>UPDATE SUPPLY ITEM </h1></legend>
     <form method="POST" action="">

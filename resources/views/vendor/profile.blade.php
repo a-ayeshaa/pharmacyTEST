@@ -9,6 +9,7 @@
 <body bgcolor="#CCCCFF"> 
     @extends('vendor.layouts.toplayout')
     @section('content')
+
     
     <center>
         {{Session::get("updated")}}
@@ -23,6 +24,7 @@
 
                 EMAIL : {{ $vendor->vendor_email}}
             </h4>
+            <label style="color:rgb(205, 11, 11)"><b>Balance :  {{$vendor->account}} </b></label>
             <br>
             <h3><a href=" {{route('vendor.edit.account',['name'=>Session::get('name')])}} ">UPDATE PROFILE INFORMATION</a></h3>
 

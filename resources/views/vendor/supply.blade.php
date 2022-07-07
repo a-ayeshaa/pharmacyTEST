@@ -11,7 +11,7 @@
     @section('content')
     <center><h2><label style="color:rgb(112, 30, 137)">SUPPLY</label></h2>
 
-    <body bgcolor="#CCCCFF">
+    <body>
         <table border="1">
             <tr>
                 
@@ -21,7 +21,7 @@
                 <th>Stock</th>
                 <th>Manufacturing Date</th>
                 <th>Expiry Date</th>
-                <th>Vendor Id</th>
+                {{-- <th>Vendor Id</th> --}}
             </tr>
             @foreach ($supp as $sup)
             <tr>
@@ -32,7 +32,7 @@
                 <td>{{$sup->stock}}</td>
                 <td>{{$sup->manufacturingDate}}</td>
                 <td>{{$sup->expiryDate}}</td>
-                <td>{{$sup->vendor_id}}</td>
+                {{-- <td>{{$sup->vendor_id}}</td> --}}
                 <td><a href="{{route('vendor.updatesupply',['supply_id'=>$sup->supply_id])}}">Update</td>
                 <td><a href="{{route('vendor.deletesupply',['supply_id'=>$sup->supply_id])}}">Delete</td> 
             </tr>
